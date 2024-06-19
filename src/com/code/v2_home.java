@@ -54,12 +54,12 @@ public final class v2_home extends javax.swing.JFrame {
     //=============================================================================================================
     public v2_home() {
         initComponents();
-        mostrarVisitantesRegistrados(tablaIngresoVisitantes);
-        mostrarCorrespondenciaRegistrada(tablaIngresoCorrespondencia);
-        mostrarIngresoVehicularPropietarios(tablaIngresoVehicular);
-        cargarApartamentosVisitantes();
-        cargarApartamentosCorrespondencia();
-        cargarApartamentosVehicularPropietarios();
+        metJTableMostrarVisitantesRegistrados(JTableControlVisitantes);
+        metJTableMostrarCorrespondenciaRegistrada(JTableControlCorrespondencia);
+        metJTableMostrarIngresoVehicularPropietarios(JTableControlVehicularPropietarios);
+        metCargarApartamentosVisitantes();
+        metCargarApartamentosCorrespondencia();
+        metCargarApartamentosVehicularPropietarios();
         //=============================================================================================================
         //METODO 01 Establece el título de la ventana principal
         this.setTitle("Ser Seguridad SICOVP - Inicio");
@@ -116,50 +116,50 @@ public final class v2_home extends javax.swing.JFrame {
         //=============================================================================================================
         /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
         de la ventana (ingreso visitantes - salida visitantes)*/
-        tablaIngresoVisitantes.addMouseListener(new java.awt.event.MouseAdapter() {
+        JTableControlVisitantes.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int filaSeleccionada = tablaIngresoVisitantes.getSelectedRow();
-                pivtxtget_nombre_visitante.setText(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 3).toString());
-                pivtxtget_numero_documento_visitante.setText(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 4).toString());
-                pivjComboBoxget_apto.setSelectedItem(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 5).toString());
-                pivtxtget_placa.setText(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 9).toString());
-                pivtxtget_motivo_visita.setText(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 7).toString());
-                piv_jComboBox_quien_autoriza.setSelectedItem(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 6).toString());
+                int filaSeleccionada = JTableControlVisitantes.getSelectedRow();
+                pivtxtget_nombre_visitante.setText(JTableControlVisitantes.getValueAt(filaSeleccionada, 3).toString());
+                pivtxtget_numero_documento_visitante.setText(JTableControlVisitantes.getValueAt(filaSeleccionada, 4).toString());
+                pivjComboBoxget_apto.setSelectedItem(JTableControlVisitantes.getValueAt(filaSeleccionada, 5).toString());
+                pivtxtget_placa.setText(JTableControlVisitantes.getValueAt(filaSeleccionada, 9).toString());
+                pivtxtget_motivo_visita.setText(JTableControlVisitantes.getValueAt(filaSeleccionada, 7).toString());
+                piv_jComboBox_quien_autoriza.setSelectedItem(JTableControlVisitantes.getValueAt(filaSeleccionada, 6).toString());
             }
         });
         //=============================================================================================================
         /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
         de la ventana (ingreso correspondencia - salida correspondencia)*/
-        tablaIngresoCorrespondencia.addMouseListener(new java.awt.event.MouseAdapter() {
+        JTableControlCorrespondencia.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int filaSeleccionada = tablaIngresoCorrespondencia.getSelectedRow();
-                pic_get_quien_trae.setText(tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 2).toString());
-                pic_get_tipo_paquete.setSelectedItem(tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 4).toString());
-                pic_get_numero_guia.setText(tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 3).toString());
-                pic_get_apartamento.setSelectedItem(tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 5).toString());
-                pic_get_nombre_residente.setSelectedItem(tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 6).toString());
+                int filaSeleccionada = JTableControlCorrespondencia.getSelectedRow();
+                pic_get_quien_trae.setText(JTableControlCorrespondencia.getValueAt(filaSeleccionada, 2).toString());
+                pic_get_tipo_paquete.setSelectedItem(JTableControlCorrespondencia.getValueAt(filaSeleccionada, 4).toString());
+                pic_get_numero_guia.setText(JTableControlCorrespondencia.getValueAt(filaSeleccionada, 3).toString());
+                pic_get_apartamento.setSelectedItem(JTableControlCorrespondencia.getValueAt(filaSeleccionada, 5).toString());
+                pic_get_nombre_residente.setSelectedItem(JTableControlCorrespondencia.getValueAt(filaSeleccionada, 6).toString());
             }
         });
         //=============================================================================================================
         /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
         de la ventana (INGRESO VEHICULAR PROPIETARIOS - SALIDA VEHICULAR PROPIETARIOS)*/
-        tablaIngresoVehicular.addMouseListener(new java.awt.event.MouseAdapter() {
+        JTableControlVehicularPropietarios.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int filaSeleccionada = tablaIngresoVehicular.getSelectedRow();
-                piptxtget_tipo_dueño.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 3).toString());
-                piptxtget_tipo_vehiculo.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 4).toString());
-                piptxtget_placa_vehicular.setText(tablaIngresoVehicular.getValueAt(filaSeleccionada, 5).toString());
-                piptxtget_get_apto.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 6).toString());
-                piptxtget_nombre_propietario.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 7).toString());
-                piptxtget_nombre_visitante.setText(tablaIngresoVehicular.getValueAt(filaSeleccionada, 8).toString());
-                piptxtget_quien_autoriza.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 9).toString());
-                piptxtget_vehicular_espejo.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 10).toString());
-                piptxtget_vehicular_estrellado.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 11).toString());
-                piptxtget_vehicular_rayado.setSelectedItem(tablaIngresoVehicular.getValueAt(filaSeleccionada, 12).toString());
-                piptxtget_vehicular_observacion.setText(tablaIngresoVehicular.getValueAt(filaSeleccionada, 13).toString());
+                int filaSeleccionada = JTableControlVehicularPropietarios.getSelectedRow();
+                piptxtget_tipo_dueño.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 3).toString());
+                piptxtget_tipo_vehiculo.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 4).toString());
+                piptxtget_placa_vehicular.setText(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 5).toString());
+                piptxtget_get_apto.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 6).toString());
+                piptxtget_nombre_propietario.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 7).toString());
+                piptxtget_nombre_visitante.setText(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 8).toString());
+                piptxtget_quien_autoriza.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 9).toString());
+                piptxtget_vehicular_espejo.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 10).toString());
+                piptxtget_vehicular_estrellado.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 11).toString());
+                piptxtget_vehicular_rayado.setSelectedItem(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 12).toString());
+                piptxtget_vehicular_observacion.setText(JTableControlVehicularPropietarios.getValueAt(filaSeleccionada, 13).toString());
             }
         });
         //=============================================================================================================
@@ -369,7 +369,7 @@ public final class v2_home extends javax.swing.JFrame {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // METODO: VISITANTES > REGISTAR INGRESO VISITANTE
 
-    public void metRegistrarUsuario() {
+    public void metRegistrarIngresoVisitante() {
         // Obtener los valores de los campos de entrada
         String pivRegistroNombreVisitante = pivtxtget_nombre_visitante.getText().toUpperCase();
         String pivRegistroNumeroDocumento = pivtxtget_numero_documento_visitante.getText().toUpperCase();
@@ -410,7 +410,7 @@ public final class v2_home extends javax.swing.JFrame {
             pst.executeUpdate();
 
             // Actualiza la tabla para reflejar los cambios
-            mostrarVisitantesRegistrados(tablaIngresoVisitantes);
+            metJTableMostrarVisitantesRegistrados(JTableControlVisitantes);
 
             Icon halo2 = new ImageIcon(getClass().getResource("/com/iconos/Ico_bd_ok.png"));
             JOptionPane.showMessageDialog(null, "Visitante " + pivRegistroNombreVisitante + " Registrado",
@@ -443,7 +443,7 @@ public final class v2_home extends javax.swing.JFrame {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // METODO: CORRESPONDENCIA > REGISTRAR INGRESO CORRESPONDENCIA
 
-    public void metRegistrarCorrespondencia() {
+    public void metRegistrarIngresoCorrespondencia() {
         // Obtener los valores de los campos de entrada
         String picQuienTrae = pic_get_quien_trae.getText().toUpperCase();
         String picTipoPaquete = pic_get_tipo_paquete.getSelectedItem().toString();
@@ -480,7 +480,7 @@ public final class v2_home extends javax.swing.JFrame {
             pst.executeUpdate();
 
             // Actualiza la tabla para reflejar los cambios
-            mostrarCorrespondenciaRegistrada(tablaIngresoCorrespondencia);
+            metJTableMostrarCorrespondenciaRegistrada(JTableControlCorrespondencia);
 
             Icon halo2 = new ImageIcon(getClass().getResource("/com/iconos/Ico_bd_ok.png"));
             JOptionPane.showMessageDialog(null, "Correspondencia a nombre de : " + picNombreResidente + " Registrada",
@@ -496,7 +496,7 @@ public final class v2_home extends javax.swing.JFrame {
 //            enviarCorreo(proveedor, remitente, contraseña, destinatario, asunto, mensaje);
         } catch (SQLException ex_31) {
             Icon halo2 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Correspondencia no registrada metRegistrarCorrespondencia(): " + ex_31,
+            JOptionPane.showMessageDialog(null, "Correspondencia no registrada metRegistrarIngresoCorrespondencia(): " + ex_31,
                     "Atencion", JOptionPane.YES_NO_CANCEL_OPTION, halo2);
         }
 
@@ -515,7 +515,7 @@ public final class v2_home extends javax.swing.JFrame {
         // (ventana control vehicular propietarios)[metodo realizar ingreso vehicular propietarios]
         try {
             // Obtener la fila seleccionada en la tabla
-            int filaSeleccionadaVehicular = tablaIngresoVehicular.getSelectedRow();
+            int filaSeleccionadaVehicular = JTableControlVehicularPropietarios.getSelectedRow();
 
             // Verificar si se ha seleccionado alguna fila
             if (filaSeleccionadaVehicular == -1) {
@@ -524,7 +524,7 @@ public final class v2_home extends javax.swing.JFrame {
             }
 
             // Obtener el ID del control vehicular propietarios de la fila seleccionada
-            int idControlVehicular = (int) tablaIngresoVehicular.getValueAt(filaSeleccionadaVehicular, 0);
+            int idControlVehicular = (int) JTableControlVehicularPropietarios.getValueAt(filaSeleccionadaVehicular, 0);
 
             // Verificar si el vehiculo ya ha ingresado
             String consultaIngresoVehicular = "SELECT fecha_hora_ingreso FROM ta6_control_vehicular_propietarios WHERE id_control_vehicular_propietarios = ?";
@@ -567,7 +567,7 @@ public final class v2_home extends javax.swing.JFrame {
             }
 
             // Actualizar la tabla con los datos actualizados
-            mostrarIngresoVehicularPropietarios(tablaIngresoVehicular);
+            metJTableMostrarIngresoVehicularPropietarios(JTableControlVehicularPropietarios);
 
         } catch (SQLException ex_realizarIngresoVehicularPropietarios) {
             System.out.println("Error: realizarIngresoVehicularPropietarios() : " + ex_realizarIngresoVehicularPropietarios);
@@ -577,7 +577,7 @@ public final class v2_home extends javax.swing.JFrame {
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // METODO: VISITANTES > ACTUALIZAR USUARIO VISITANTE
-    public void actualizarUsuario() {
+    public void metActualizarVisitante() {
         // Obtén los datos del formulario
         String actualizarNombreVisitante = pivtxtget_nombre_visitante.getText().toUpperCase();
         String actualizarNumeroDocumento = pivtxtget_numero_documento_visitante.getText().toUpperCase();
@@ -587,8 +587,8 @@ public final class v2_home extends javax.swing.JFrame {
         String actualizarQuienAutoriza = piv_jComboBox_quien_autoriza.getSelectedItem().toString();
 
         // Obtén el ID del usuario seleccionado en la tabla
-        int filaSeleccionada = tablaIngresoVisitantes.getSelectedRow();
-        int idUsuario = Integer.parseInt(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 0).toString());
+        int filaSeleccionada = JTableControlVisitantes.getSelectedRow();
+        int idUsuario = Integer.parseInt(JTableControlVisitantes.getValueAt(filaSeleccionada, 0).toString());
 
         try {
             // Consulta SQL para actualizar el usuario
@@ -605,7 +605,7 @@ public final class v2_home extends javax.swing.JFrame {
             pst.executeUpdate();
 
             // Actualiza la tabla para reflejar los cambios
-            mostrarVisitantesRegistrados(tablaIngresoVisitantes);
+            metJTableMostrarVisitantesRegistrados(JTableControlVisitantes);
 
             JOptionPane.showMessageDialog(null, "Visitante actualizado correctamente");
 
@@ -629,9 +629,9 @@ public final class v2_home extends javax.swing.JFrame {
         piv_jComboBox_quien_autoriza.setSelectedItem(null);
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // METODO: v2_home > VISITANTES > MOSTRAR VISITANTES REGISTRADOS EN JTABLE
+    // METODO: VISITANTES > MOSTRAR REGISTROS DE VISITANTES JTABLE
 
-    public void mostrarVisitantesRegistrados(JTable tablaIngresoVisitantes) {
+    public void metJTableMostrarVisitantesRegistrados(JTable tablaIngresoVisitantes) {
         try {
             // Consulta para obtener los visitantes registrados
             String consult_db_01 = "SELECT id_control_peatonal, fecha_hora_ingreso, fecha_hora_salida, nombre_visitante, numero_documento_visitante, numero_apartamento, quien_autoriza, motivo_visita, estado_visitante, placa_vehicular, tipo_usuario, nombre_vigilante FROM ta4_control_peatonal WHERE fecha_hora_ingreso;";
@@ -731,126 +731,13 @@ public final class v2_home extends javax.swing.JFrame {
 
         } catch (SQLException ex_10) {
             // Manejar excepciones al mostrar los visitantes registrados
-            System.out.println("Error al mostrar los visitantes registrados --> mostrarVisitantesRegistrados() : " + ex_10);
+            System.out.println("Error al mostrar los visitantes registrados --> metJTableMostrarVisitantesRegistrados() : " + ex_10);
         }
     }
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //METODO: VISITANTES > MOSTRAR REGISTROS DE CORRESPONDENCIA JTABLE
 
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // Método para mostrar los resultados de la búsqueda en una nueva tabla
-    private void mostrarResultadosEnNuevaTabla(ResultSet rs) {
-        try {
-            // Crear el modelo de la nueva tabla
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("ID");
-            model.addColumn("Fecha hora ingreso");
-            model.addColumn("Fecha hora salida");
-            model.addColumn("Nombre visitante");
-            model.addColumn("# documento");
-            model.addColumn("Apto");
-            model.addColumn("Quien autoriza");
-            model.addColumn("Motivo visita");
-            model.addColumn("Estado ");
-            model.addColumn("Placa");
-            model.addColumn("Tipo");
-            model.addColumn("Vigilante");
-
-            // Llenar el modelo con los datos de la consulta
-            while (rs.next()) {
-                Object[] row = {
-                    rs.getInt("id_control_peatonal"),
-                    rs.getString("fecha_hora_ingreso"),
-                    rs.getString("fecha_hora_salida"),
-                    rs.getString("nombre_visitante"),
-                    rs.getString("numero_documento_visitante"),
-                    rs.getString("numero_apartamento"),
-                    rs.getString("quien_autoriza"),
-                    rs.getString("motivo_visita"),
-                    rs.getString("estado_visitante"),
-                    rs.getString("placa_vehicular"),
-                    rs.getString("tipo_usuario"),
-                    rs.getString("nombre_vigilante")
-                };
-                model.addRow(row);
-            }
-
-            // Crear la nueva tabla con el modelo creado
-            JTable nuevaTabla = new JTable(model);
-
-            // Asignar el modelo a la nueva tabla
-            nuevaTabla.setModel(model);
-
-            // Agregar la nueva tabla al panel donde se muestra la tabla predeterminada
-            JScrollPane scrollPane = new JScrollPane(nuevaTabla);
-            panel_m_i_visitante.removeAll();
-            panel_m_i_visitante.add(scrollPane);
-            panel_m_i_visitante.revalidate();
-            panel_m_i_visitante.repaint();
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-        }
-    }
-
-// Método para mostrar la tabla predeterminada
-    private void mostrarTablaPredeterminada() {
-        // Agregar la tabla predeterminada al panel donde se muestra la tabla predeterminada
-        JScrollPane scrollPane = new JScrollPane(tablaIngresoVisitantes);
-        panel_m_i_visitante.removeAll();
-        panel_m_i_visitante.add(scrollPane);
-        panel_m_i_visitante.revalidate();
-        panel_m_i_visitante.repaint();
-    }
-
-// Método para buscar por número de documento
-    public void buscarPorNumeroDocumento(String numeroDocumento2) {
-        try {
-            // Validar que se haya ingresado un número de documento
-            if (numeroDocumento2.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese un número de documento");
-                return;
-            }
-
-            String consulta = "SELECT * FROM ta4_control_peatonal WHERE numero_documento_visitante = ?";
-            try (PreparedStatement pst = cn.prepareStatement(consulta)) {
-                pst.setString(1, numeroDocumento2);
-
-                try (ResultSet rs = pst.executeQuery()) {
-                    mostrarResultadosEnNuevaTabla(rs);
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-        }
-    }
-
-// Método para buscar por apartamento
-    public void buscarPorApartamento(String numeroApartamento) {
-        try {
-            // Validar que se haya ingresado un número de apartamento
-            if (numeroApartamento.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese un número de apartamento");
-                return;
-            }
-
-            String consulta = "SELECT * FROM ta4_control_peatonal WHERE numero_apartamento = ?";
-            try (PreparedStatement pst = cn.prepareStatement(consulta)) {
-                pst.setString(1, numeroApartamento);
-
-                try (ResultSet rs = pst.executeQuery()) {
-                    mostrarResultadosEnNuevaTabla(rs);
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-        }
-    }
-
-// Método para volver a mostrar la tabla predeterminada
-    public void mostrarTablaPredeterminadaOnClick() {
-        mostrarTablaPredeterminada();
-    }
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public void mostrarCorrespondenciaRegistrada(JTable tablaIngresoCorrespondencia) {
+    public void metJTableMostrarCorrespondenciaRegistrada(JTable tablaIngresoCorrespondencia) {
         try {
             // Consulta para obtener los visitantes registrados
             String consult_db_02 = "SELECT id_control_correspondencia, fecha_hora_ingreso, numero_guia, quien_trae, numero_guia, tipo_paquete, numero_apartamento, a_nombre_de, fecha_hora_salida, quien_reclama, estado_paquete, observacion, nombre_vigilante FROM ta5_control_correspondencia WHERE fecha_hora_ingreso;";
@@ -947,12 +834,13 @@ public final class v2_home extends javax.swing.JFrame {
             tablaIngresoCorrespondencia.getColumnModel().getColumn(11).setPreferredWidth(180); // vigilante
 
         } catch (SQLException ex_11) {
-            System.out.println("Error al mostrar los visitantes registrados --> mostrarVisitantesRegistrados() : " + ex_11);
+            System.out.println("Error al mostrar los visitantes registrados --> metJTableMostrarVisitantesRegistrados() : " + ex_11);
         }
     }
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // METODO: VISITANTES MOSTRAR REGISTROS VEHICULARES PROPIETARIOS JTABLE
 
-    public void mostrarIngresoVehicularPropietarios(JTable tablaIngresoVehicular) {
+    public void metJTableMostrarIngresoVehicularPropietarios(JTable tablaIngresoVehicular) {
         try {
             // Consulta para obtener los visitantes registrados
             String consult_db_03 = "SELECT id_control_vehicular_propietarios, fecha_hora_ingreso, fecha_hora_salida, tipo_dueño,tipo_vehiculo,placa_vehicular,numero_apartamento,nombre_propietario,nombre_visitante,visitante_autorizado_por,vehiculo_espejo,vehiculo_estrellado,vehiculo_rayado,vehiculo_observacion,vehiculo_estado,nombre_vigilante FROM ta6_control_vehicular_propietarios WHERE fecha_hora_salida;";
@@ -1059,59 +947,14 @@ public final class v2_home extends javax.swing.JFrame {
             tablaIngresoVehicular.getColumnModel().getColumn(14).setPreferredWidth(60); // vehiculo estado
             tablaIngresoVehicular.getColumnModel().getColumn(15).setPreferredWidth(180); // vigilante
 
-        } catch (SQLException ex_mostrarIngresoVehicularPropietarios) {
-            System.out.println("Error > mostrarIngresoVehicularPropietarios(JTable tablaIngresoVehicular) : " + ex_mostrarIngresoVehicularPropietarios);
-            ex_mostrarIngresoVehicularPropietarios.printStackTrace();
+        } catch (SQLException ex_metJTableMostrarIngresoVehicularPropietarios) {
+            System.out.println("Error > metJTableMostrarIngresoVehicularPropietarios(JTable tablaIngresoVehicular) : " + ex_metJTableMostrarIngresoVehicularPropietarios);
+            ex_metJTableMostrarIngresoVehicularPropietarios.printStackTrace();
         }
     }
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//Version 1
-//    public void buscarVisitantePorNumeroDocumento() {
-//        try {
-//            // Obtener el número de documento del JTextField
-//            String numeroDocumento = pivtxtget_filtro.getText();
-//
-//            // Validar que se haya ingresado un número de documento
-//            if (numeroDocumento.isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "Ingrese un número de documento");
-//                return;
-//            }
-//
-//            String consulta = "SELECT * FROM ta4_control_peatonal WHERE numero_documento_visitante = ?";
-//            try (PreparedStatement pst = cn.prepareStatement(consulta)) {
-//                pst.setString(1, numeroDocumento);
-//
-//                try (ResultSet rs = pst.executeQuery()) {
-//                    if (rs.next()) {
-//                        // El visitante está registrado, recuperar los datos y mostrarlos en la UI
-//                        // Por ejemplo:                
-//                        String nombreVisitante = rs.getString("nombre_visitante");
-////                    String nombreDocumento = rs.getString("numero_documento_visitante");
-//                        String numeroApartamento = rs.getString("numero_apartamento");
-//                        String placaVehicular = rs.getString("placa_vehicular");
-//                        String motivoVisita = rs.getString("motivo_visita");
-//                        String quienAutoriza = rs.getString("quien_autoriza");
-//                        // ... continuar con los demás campos
-//
-//                        // Mostrar los datos en la UI, por ejemplo:
-//                        pivtxtget_nombre_visitante.setText(nombreVisitante);
-////                    pivtxtget_numero_documento_visitante.setText(nombreDocumento);
-//                        pivjComboBoxget_apto.setSelectedItem(numeroApartamento);
-//                        pivtxtget_placa.setText(placaVehicular);
-//                        pivtxtget_motivo_visita.setText(motivoVisita);
-//                        piv_jComboBox_quien_autoriza.setSelectedItem(quienAutoriza);
-//                        // ... continuar con los demás campos
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "El visitante nunca ha ingresado");
-//                    }
-//                }
-//            }
-//        } catch (SQLException ex_11) {
-//            ex_11.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-//        }
-//    }
-    //Version 2
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
     public void buscarVisitantePorNumeroDocumento(String numeroDocumento1) {
         try {
             // Validar que se haya ingresado un número de documento
@@ -1420,7 +1263,7 @@ public final class v2_home extends javax.swing.JFrame {
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    public void buscarCorrespondenciaPorNumeroGuia() {
+    public void metBuscarCorrespondenciaPorNumeroGuia() {
         try {
             // Obtener el número de guía del JTextField
             String numeroGuiaCorrespondencia = pic_get_numero_guia.getText().trim();
@@ -1468,7 +1311,7 @@ public final class v2_home extends javax.swing.JFrame {
     }
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    private void buscarVehicularPropietarioPorPlaca() {
+    private void metBuscarPorPlacaVehicularPropietario() {
         try {
             // Obtener la placa vehicular del JTextField
             String pipSalidaVehicularBPlaca = piptxtget_placa_vehicular.getText().trim();
@@ -1518,19 +1361,19 @@ public final class v2_home extends javax.swing.JFrame {
                     }
                 }
             }
-        } catch (SQLException ex_buscarVehicularPropietarioPorPlaca) {
+        } catch (SQLException ex_metBuscarPorPlacaVehicularPropietario) {
             // Manejo adecuado de la excepción
-            System.out.println("Error buscarVehicularPropietarioPorPlaca() " + ex_buscarVehicularPropietarioPorPlaca);
-            ex_buscarVehicularPropietarioPorPlaca.printStackTrace();
+            System.out.println("Error metBuscarPorPlacaVehicularPropietario() " + ex_metBuscarPorPlacaVehicularPropietario);
+            ex_metBuscarPorPlacaVehicularPropietario.printStackTrace();
         }
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //(ventana control peatonal)[metodo salida peatonal]
 
-    public void realizarSalidaVisitante() {
+    public void metRealizarSalidaVisitante() {
         try {
             // Obtener la fila seleccionada en la tabla
-            int filaSeleccionada = tablaIngresoVisitantes.getSelectedRow();
+            int filaSeleccionada = JTableControlVisitantes.getSelectedRow();
 
             // Verificar si se ha seleccionado alguna fila
             if (filaSeleccionada == -1) {
@@ -1539,7 +1382,7 @@ public final class v2_home extends javax.swing.JFrame {
             }
 
             // Obtener el ID del control peatonal de la fila seleccionada
-            int idControlPeatonal = (int) tablaIngresoVisitantes.getValueAt(filaSeleccionada, 0);
+            int idControlPeatonal = (int) JTableControlVisitantes.getValueAt(filaSeleccionada, 0);
 
             // Verificar si el visitante ya ha salido
             String consultaSalida = "SELECT fecha_hora_salida FROM ta4_control_peatonal WHERE id_control_peatonal = ?";
@@ -1581,7 +1424,7 @@ public final class v2_home extends javax.swing.JFrame {
             }
 
             // Actualizar la tabla con los datos actualizados
-            mostrarVisitantesRegistrados(tablaIngresoVisitantes);
+            metJTableMostrarVisitantesRegistrados(JTableControlVisitantes);
 
         } catch (SQLException ex_13) {
             ex_13.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
@@ -1590,10 +1433,10 @@ public final class v2_home extends javax.swing.JFrame {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //(ventana control correspondencia)[metodo reealizar salida correspondencia]
 
-    public void realizarSalidaCorrespondencia() {
+    public void metRealizarSalidaCorrespondencia() {
         try {
             // Obtener la fila seleccionada en la tabla
-            int filaSeleccionada = tablaIngresoCorrespondencia.getSelectedRow();
+            int filaSeleccionada = JTableControlCorrespondencia.getSelectedRow();
 
             // Verificar si se ha seleccionado alguna fila
             if (filaSeleccionada == -1) {
@@ -1602,7 +1445,7 @@ public final class v2_home extends javax.swing.JFrame {
             }
 
             // Obtener el ID de control correspondencia de la fila seleccionada
-            int idControlCorrespondencia = (int) tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 0);
+            int idControlCorrespondencia = (int) JTableControlCorrespondencia.getValueAt(filaSeleccionada, 0);
 
             // Obtener el texto del JTextField para quien reclama la correspondencia
             String verificarQuienReclamaPaquete = pic_get_quien_reclama.getText().trim();
@@ -1657,7 +1500,7 @@ public final class v2_home extends javax.swing.JFrame {
             }
 
             // Actualizar la tabla con los datos actualizados
-            mostrarCorrespondenciaRegistrada(tablaIngresoCorrespondencia);
+            metJTableMostrarCorrespondenciaRegistrada(JTableControlCorrespondencia);
 
         } catch (SQLException ex_13) {
             ex_13.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
@@ -1666,7 +1509,7 @@ public final class v2_home extends javax.swing.JFrame {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(ventana control vehicular propietarios)[metodo realizar salida propietarios]
 
-    private void realizarSalidaVehicularPropietarios() {
+    private void metRealizarSalidaVehicularPropietarios() {
         // ... [Tu código previo para obtener los valores del formulario]
         // Obtener los valores del formulario INGRESO - SALIDA VEHICULAR PROPIETARIOS
         String pipSalidaVehicularTipoDueño = piptxtget_tipo_dueño.getSelectedItem().toString();
@@ -1722,7 +1565,7 @@ public final class v2_home extends javax.swing.JFrame {
             pst.executeUpdate();
 
             // Actualiza la tabla para reflejar los cambios
-            mostrarIngresoVehicularPropietarios(tablaIngresoVehicular);
+            metJTableMostrarIngresoVehicularPropietarios(JTableControlVehicularPropietarios);
 
             Icon halo2 = new ImageIcon(getClass().getResource("/com/iconos/Ico_bd_ok.png"));
             JOptionPane.showMessageDialog(null, pipSalidaVehicularTipoDueño + " " + pipSalidaNombrePropietario + " Salio", "Atencion", JOptionPane.YES_NO_CANCEL_OPTION, halo2);
@@ -1749,7 +1592,7 @@ public final class v2_home extends javax.swing.JFrame {
     }
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public void cargarApartamentosVisitantes() {
+    public void metCargarApartamentosVisitantes() {
         //Carga de apartamentos para panel ingreso salida visitantes
         try {
             // Consulta para obtener la lista de apartamentos ordenados numéricamente
@@ -1774,7 +1617,7 @@ public final class v2_home extends javax.swing.JFrame {
     }
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public void cargarApartamentosCorrespondencia() {
+    public void metCargarApartamentosCorrespondencia() {
         //Carga de apartamentos para panel ingreso salida correspondencia
         try {
             // Consulta para obtener la lista de apartamentos ordenados numéricamente
@@ -1799,7 +1642,7 @@ public final class v2_home extends javax.swing.JFrame {
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    public void cargarApartamentosVehicularPropietarios() {
+    public void metCargarApartamentosVehicularPropietarios() {
         //Carga de apartamentos para panel ingreso salida correspondencia
         try {
             // Consulta para obtener la lista de apartamentos ordenados numéricamente
@@ -2051,7 +1894,7 @@ public final class v2_home extends javax.swing.JFrame {
         panel_titulo = new javax.swing.JPanel();
         sub_panel_titulo_txt_titulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaIngresoVisitantes = new javax.swing.JTable();
+        JTableControlVisitantes = new javax.swing.JTable();
         panel_form_botones = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         pivtxtget_nombre_visitante = new javax.swing.JTextField();
@@ -2081,7 +1924,7 @@ public final class v2_home extends javax.swing.JFrame {
         panel_titulo1 = new javax.swing.JPanel();
         sub_panel_titulo_txt_titulo1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaIngresoCorrespondencia = new javax.swing.JTable();
+        JTableControlCorrespondencia = new javax.swing.JTable();
         panel_form_ingreso = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pic_get_quien_trae = new javax.swing.JTextField();
@@ -2145,7 +1988,7 @@ public final class v2_home extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JSeparator();
         pip_btn_limpiar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tablaIngresoVehicular = new javax.swing.JTable();
+        JTableControlVehicularPropietarios = new javax.swing.JTable();
 
         p_i_v_btn_buscar_placa.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         p_i_v_btn_buscar_placa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_buscarplaca_40px.png"))); // NOI18N
@@ -2543,8 +2386,8 @@ public final class v2_home extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        tablaIngresoVisitantes.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        tablaIngresoVisitantes.setModel(new javax.swing.table.DefaultTableModel(
+        JTableControlVisitantes.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        JTableControlVisitantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -2555,14 +2398,14 @@ public final class v2_home extends javax.swing.JFrame {
 
             }
         ));
-        tablaIngresoVisitantes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tablaIngresoVisitantes.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        tablaIngresoVisitantes.addMouseListener(new java.awt.event.MouseAdapter() {
+        JTableControlVisitantes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        JTableControlVisitantes.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTableControlVisitantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaIngresoVisitantesMouseClicked(evt);
+                JTableControlVisitantesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaIngresoVisitantes);
+        jScrollPane1.setViewportView(JTableControlVisitantes);
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2649,7 +2492,7 @@ public final class v2_home extends javax.swing.JFrame {
         jSeparator16.setForeground(new java.awt.Color(0, 0, 0));
 
         pivtxtget_filtro_opciones.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        pivtxtget_filtro_opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "# Documento", "# Apartamento", "Nombre Visitante", "Placa Vehicular", "Fecha" }));
+        pivtxtget_filtro_opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "# Documento", "Placa Vehicular" }));
 
         jLabel30.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2914,8 +2757,8 @@ public final class v2_home extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        tablaIngresoCorrespondencia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        tablaIngresoCorrespondencia.setModel(new javax.swing.table.DefaultTableModel(
+        JTableControlCorrespondencia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        JTableControlCorrespondencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -2926,14 +2769,14 @@ public final class v2_home extends javax.swing.JFrame {
 
             }
         ));
-        tablaIngresoCorrespondencia.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tablaIngresoCorrespondencia.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        tablaIngresoCorrespondencia.addMouseListener(new java.awt.event.MouseAdapter() {
+        JTableControlCorrespondencia.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        JTableControlCorrespondencia.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        JTableControlCorrespondencia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaIngresoCorrespondenciaMouseClicked(evt);
+                JTableControlCorrespondenciaMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tablaIngresoCorrespondencia);
+        jScrollPane2.setViewportView(JTableControlCorrespondencia);
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -3541,8 +3384,8 @@ public final class v2_home extends javax.swing.JFrame {
                 .addGap(3, 3, 3))
         );
 
-        tablaIngresoVehicular.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        tablaIngresoVehicular.setModel(new javax.swing.table.DefaultTableModel(
+        JTableControlVehicularPropietarios.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        JTableControlVehicularPropietarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -3553,9 +3396,9 @@ public final class v2_home extends javax.swing.JFrame {
 
             }
         ));
-        tablaIngresoVehicular.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tablaIngresoVehicular.setSelectionBackground(new java.awt.Color(102, 255, 255));
-        jScrollPane3.setViewportView(tablaIngresoVehicular);
+        JTableControlVehicularPropietarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        JTableControlVehicularPropietarios.setSelectionBackground(new java.awt.Color(102, 255, 255));
+        jScrollPane3.setViewportView(JTableControlVehicularPropietarios);
 
         javax.swing.GroupLayout panel_m_i_vehiculosLayout = new javax.swing.GroupLayout(panel_m_i_vehiculos);
         panel_m_i_vehiculos.setLayout(panel_m_i_vehiculosLayout);
@@ -3728,7 +3571,7 @@ public final class v2_home extends javax.swing.JFrame {
         panel_rigth.add(panel_m_i_visitante);
         panel_rigth.repaint();
         panel_rigth.revalidate();
-        mostrarVisitantesRegistrados(tablaIngresoVisitantes);
+        metJTableMostrarVisitantesRegistrados(JTableControlVisitantes);
     }//GEN-LAST:event_btn_i_visitanteMouseClicked
 
     private void pivtxtget_nombre_visitanteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pivtxtget_nombre_visitanteFocusGained
@@ -3756,7 +3599,7 @@ public final class v2_home extends javax.swing.JFrame {
         panel_rigth.add(panel_m_i_correspondencia);
         panel_rigth.repaint();
         panel_rigth.revalidate();
-        mostrarCorrespondenciaRegistrada(tablaIngresoCorrespondencia);
+        metJTableMostrarCorrespondenciaRegistrada(JTableControlCorrespondencia);
 //──────────────────────────────────────────────────────────────────
     }//GEN-LAST:event_btn_i_correspondenciaMouseClicked
 
@@ -3777,7 +3620,7 @@ public final class v2_home extends javax.swing.JFrame {
         panel_rigth.add(panel_m_i_vehiculos);
         panel_rigth.repaint();
         panel_rigth.revalidate();
-        mostrarIngresoVehicularPropietarios(tablaIngresoVehicular);
+        metJTableMostrarIngresoVehicularPropietarios(JTableControlVehicularPropietarios);
 //──────────────────────────────────────────────────────────────────
     }//GEN-LAST:event_btn_i_vehicularMouseClicked
 
@@ -3844,20 +3687,19 @@ public final class v2_home extends javax.swing.JFrame {
     }//GEN-LAST:event_p_i_v_btb_buscar_cedulaMouseClicked
 
     private void p_i_v_btn_exit_visitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_i_v_btn_exit_visitanteActionPerformed
-        realizarSalidaVisitante();
-
+        metRealizarSalidaVisitante();
     }//GEN-LAST:event_p_i_v_btn_exit_visitanteActionPerformed
 
     private void p_i_v_btn_actualizar_visitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_i_v_btn_actualizar_visitanteActionPerformed
 
     }//GEN-LAST:event_p_i_v_btn_actualizar_visitanteActionPerformed
 
-    private void tablaIngresoVisitantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaIngresoVisitantesMouseClicked
+    private void JTableControlVisitantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableControlVisitantesMouseClicked
 
-    }//GEN-LAST:event_tablaIngresoVisitantesMouseClicked
+    }//GEN-LAST:event_JTableControlVisitantesMouseClicked
 
     private void p_i_v_btn_actualizar_visitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_i_v_btn_actualizar_visitanteMouseClicked
-        actualizarUsuario();
+        metActualizarVisitante();
     }//GEN-LAST:event_p_i_v_btn_actualizar_visitanteMouseClicked
 
     private void p_i_v_btn_exit_visitante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p_i_v_btn_exit_visitante1ActionPerformed
@@ -3869,12 +3711,12 @@ public final class v2_home extends javax.swing.JFrame {
         pivtxtget_motivo_visita.setText("");
         piv_jComboBox_quien_autoriza.setSelectedItem(null);
         pivtxtget_filtro.setText("");
-        mostrarVisitantesRegistrados(tablaIngresoVisitantes);
+        metJTableMostrarVisitantesRegistrados(JTableControlVisitantes);
     }//GEN-LAST:event_p_i_v_btn_exit_visitante1ActionPerformed
 
-    private void tablaIngresoCorrespondenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaIngresoCorrespondenciaMouseClicked
+    private void JTableControlCorrespondenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableControlCorrespondenciaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tablaIngresoCorrespondenciaMouseClicked
+    }//GEN-LAST:event_JTableControlCorrespondenciaMouseClicked
 
     private void pic_btn_registrar_ingresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pic_btn_registrar_ingresoActionPerformed
         // TODO add your handling code here:
@@ -3890,7 +3732,7 @@ public final class v2_home extends javax.swing.JFrame {
         pic_get_numero_guia.setText("");
         pic_get_quien_reclama.setText("");
         pic_get_observacion.setText("");
-        mostrarCorrespondenciaRegistrada(tablaIngresoCorrespondencia);
+        metJTableMostrarCorrespondenciaRegistrada(JTableControlCorrespondencia);
     }//GEN-LAST:event_pic_btn_buscar_apartamentoActionPerformed
 
     private void pic_btn_buscar_guiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pic_btn_buscar_guiaActionPerformed
@@ -3898,15 +3740,15 @@ public final class v2_home extends javax.swing.JFrame {
     }//GEN-LAST:event_pic_btn_buscar_guiaActionPerformed
 
     private void pic_btn_registrar_ingresoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pic_btn_registrar_ingresoMouseClicked
-        metRegistrarCorrespondencia();
+        metRegistrarIngresoCorrespondencia();
     }//GEN-LAST:event_pic_btn_registrar_ingresoMouseClicked
 
     private void pic_btn_registrar_salidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pic_btn_registrar_salidaMouseClicked
-        realizarSalidaCorrespondencia();
+        metRealizarSalidaCorrespondencia();
     }//GEN-LAST:event_pic_btn_registrar_salidaMouseClicked
 
     private void pic_btn_buscar_guiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pic_btn_buscar_guiaMouseClicked
-        buscarCorrespondenciaPorNumeroGuia();
+        metBuscarCorrespondenciaPorNumeroGuia();
     }//GEN-LAST:event_pic_btn_buscar_guiaMouseClicked
 
     private void pip_btn_registrar_ingresoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pip_btn_registrar_ingresoMouseClicked
@@ -3914,7 +3756,7 @@ public final class v2_home extends javax.swing.JFrame {
     }//GEN-LAST:event_pip_btn_registrar_ingresoMouseClicked
 
     private void pip_btn_registrar_salidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pip_btn_registrar_salidaMouseClicked
-        realizarSalidaVehicularPropietarios(); //Invocar metodo
+        metRealizarSalidaVehicularPropietarios(); //Invocar metodo
     }//GEN-LAST:event_pip_btn_registrar_salidaMouseClicked
 
     private void btn_i_visitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_i_visitanteActionPerformed
@@ -4060,12 +3902,12 @@ public final class v2_home extends javax.swing.JFrame {
 
     private void p_i_v_btn_ingreso_visitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_i_v_btn_ingreso_visitanteMouseClicked
         //Invocar metodos
-        metRegistrarUsuario();
+        metRegistrarIngresoVisitante();
     }//GEN-LAST:event_p_i_v_btn_ingreso_visitanteMouseClicked
 
     private void pip_btn_buscar_placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pip_btn_buscar_placaActionPerformed
         //Incovar metodo
-        buscarVehicularPropietarioPorPlaca();
+        metBuscarPorPlacaVehicularPropietario();
     }//GEN-LAST:event_pip_btn_buscar_placaActionPerformed
 
     private void pip_btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pip_btn_limpiarActionPerformed
@@ -4076,7 +3918,7 @@ public final class v2_home extends javax.swing.JFrame {
         piptxtget_nombre_visitante.setText("");
         piptxtget_quien_autoriza.setSelectedItem(null);
         piptxtget_vehicular_observacion.setText("");
-        mostrarIngresoVehicularPropietarios(tablaIngresoVehicular);
+        metJTableMostrarIngresoVehicularPropietarios(JTableControlVehicularPropietarios);
     }//GEN-LAST:event_pip_btn_limpiarActionPerformed
 
     private void pivtxtget_filtroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pivtxtget_filtroFocusGained
@@ -4152,6 +3994,9 @@ public final class v2_home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable JTableControlCorrespondencia;
+    private javax.swing.JTable JTableControlVehicularPropietarios;
+    public static javax.swing.JTable JTableControlVisitantes;
     private javax.swing.JButton btn_acercade;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_i_correspondencia;
@@ -4272,9 +4117,6 @@ public final class v2_home extends javax.swing.JFrame {
     private javax.swing.JLabel sub_panel_titulo_txt_titulo1;
     private javax.swing.JLabel sub_panel_titulo_txt_titulo2;
     private javax.swing.JPanel subpanel_titulo2;
-    public static javax.swing.JTable tablaIngresoCorrespondencia;
-    private javax.swing.JTable tablaIngresoVehicular;
-    public static javax.swing.JTable tablaIngresoVisitantes;
     public static javax.swing.JLabel v2_txt_set_name_vigilante;
     // End of variables declaration//GEN-END:variables
 }
