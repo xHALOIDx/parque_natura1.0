@@ -1,3 +1,4 @@
+//=============================================================================================================
 package com.code;
 
 import com.metodos.conexion;
@@ -30,18 +31,18 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+//=============================================================================================================
 /**
  *
  * @author luise
  */
 public final class v2_home extends javax.swing.JFrame {
 
-
-    /*|||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar)||||||||||||||||||||||||||||||||||*/
+    /*||||||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar)||||||||||||||||||||||||||||||||||*/
     conexion cc = new conexion();
     Connection cn = cc.conexion();
     /*|||||||||||||||||||||||||||||||||| Finaliza Llamando conexion (conectar)|||||||||||||||||||||||||||||||||*/
- /*---------------------------------------------------------------------------------------------------------*/
+    //=============================================================================================================
     //Variables para guarda estado de los botones (btn_i_visitante, btn_i_correspondencia, btn_i_carro, btn_buscar, btn_acercade)
     //Ubicados en el panel izquierdo [Este código debería mantener el color del botón seleccionado hasta que otro botón sea activado]
     private boolean estaVisitanteActivo = false;
@@ -50,7 +51,7 @@ public final class v2_home extends javax.swing.JFrame {
     private boolean estaBuscarActivo = false;
     private boolean estaAcercaDeActivo = false;
 
-    /*---------------------------------------------------------------------------------------------------------*/
+    //=============================================================================================================
     public v2_home() {
         initComponents();
         mostrarVisitantesRegistrados(tablaIngresoVisitantes);
@@ -59,13 +60,13 @@ public final class v2_home extends javax.swing.JFrame {
         cargarApartamentosVisitantes();
         cargarApartamentosCorrespondencia();
         cargarApartamentosVehicularPropietarios();
-        //--------------------------------------------------------------------------------------------------------| 
+        //=============================================================================================================
         //METODO 01 Establece el título de la ventana principal
         this.setTitle("Ser Seguridad SICOVP - Inicio");
-        //--------------------------------------------------------------------------------------------------------| 
+        //=============================================================================================================
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
-        //--------------------------------------------------------------------------------------------------------|   
+        //=============================================================================================================
         // Metodo 03 Confirmacion cerrar ventana actual: 
         //Configuramos la acción que sucede al hacer clic en el botón "X" de la ventana
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -82,7 +83,7 @@ public final class v2_home extends javax.swing.JFrame {
                 }
             }
         });
-        //--------------------------------------------------------------------------------------------------------| 
+        //=============================================================================================================
         // Agregar un ActionListener al JComboBox de Apartamentos panel ingreso salida visitantes
         pivjComboBoxget_apto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -92,7 +93,7 @@ public final class v2_home extends javax.swing.JFrame {
                 cargarPropietariosPorApartamentoVisitantes(apartamentoSeleccionadoVisitante);
             }
         });
-        //--------------------------------------------------------------------------------------------------------|  
+        //=============================================================================================================
         // Agregar un ActionListener al JComboBox de Apartamentos panel ingreso salida correspondencia
         pic_get_apartamento.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -102,7 +103,7 @@ public final class v2_home extends javax.swing.JFrame {
                 cargarPropietariosPorApartamentoCorrespondencia(apartamentoSeleccionadoCorrespondencia);
             }
         });
-        //--------------------------------------------------------------------------------------------------------|  
+        //=============================================================================================================
         // Agregar un ActionListener al JComboBox de Apartamentos panel ingreso salida vehicular propietarios
         piptxtget_get_apto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -112,8 +113,8 @@ public final class v2_home extends javax.swing.JFrame {
                 cargarPropietariosPorApartamentoVehicularPropietarios(apartamentoSeleccionadoVehicularPropietarios);
             }
         });
-        /* ------------------------------------------------------------------------------------------------------ */
- /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
+        //=============================================================================================================
+        /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
         de la ventana (ingreso visitantes - salida visitantes)*/
         tablaIngresoVisitantes.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -127,8 +128,8 @@ public final class v2_home extends javax.swing.JFrame {
                 piv_jComboBox_quien_autoriza.setSelectedItem(tablaIngresoVisitantes.getValueAt(filaSeleccionada, 6).toString());
             }
         });
-        /* ------------------------------------------------------------------------------------------------------ */
- /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
+        //=============================================================================================================
+        /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
         de la ventana (ingreso correspondencia - salida correspondencia)*/
         tablaIngresoCorrespondencia.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -141,8 +142,8 @@ public final class v2_home extends javax.swing.JFrame {
                 pic_get_nombre_residente.setSelectedItem(tablaIngresoCorrespondencia.getValueAt(filaSeleccionada, 6).toString());
             }
         });
-        /* ------------------------------------------------------------------------------------------------------ */
- /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
+        //=============================================================================================================
+        /* Constructor, al hacer clic en la tabla se muestra la informacion de la fila selecionada en los campos 
         de la ventana (INGRESO VEHICULAR PROPIETARIOS - SALIDA VEHICULAR PROPIETARIOS)*/
         tablaIngresoVehicular.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -161,50 +162,61 @@ public final class v2_home extends javax.swing.JFrame {
                 piptxtget_vehicular_observacion.setText(tablaIngresoVehicular.getValueAt(filaSeleccionada, 13).toString());
             }
         });
-        /*---------------------------------------------------------------------------------------------------------*/
- /*[CODIGO DE JOPTION>JTEXTFIELD>JBUTTON][PARTE 2] */
+        //=============================================================================================================
+        /*[CODIGO DE JOPTION>JTEXTFIELD>JBUTTON][PARTE 2] */
         //Este fragmento de código agrega un ActionListener al botón de búsqueda para ejecutar el método de búsqueda con el criterio y valor seleccionados.
         p_i_v_btn_buscar_filtro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String filtroSeleccionado = pivtxtget_filtro_opciones.getSelectedItem().toString();
+                String valorBusqueda = pivtxtget_filtro.getText();
+
+                if (valorBusqueda.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un valor para buscar");
+                    return;
+                }
+
+                switch (filtroSeleccionado) {
+                    case "# Documento":
+                        buscarVisitante("numero_documento_visitante", valorBusqueda);
+                        break;
+                    case "# Apartamento":
+                        buscarVisitantePorApartamento2(valorBusqueda); // Llama al método específico para buscar por apartamento
+                        break;
+                    case "Nombre Visitante":
+                        buscarVisitante("nombre_visitante", valorBusqueda);
+                        break;
+                    case "Placa Vehicular":
+                        buscarVisitante("placa_vehicular", valorBusqueda);
+                        break;
+                    case "Fecha":
+                        buscarVisitante("fecha", valorBusqueda);  // Ajusta según tu campo de fecha en la base de datos
+                        break;
+                    case "Estado visitante":
+                        buscarVisitante("estado_visitante", valorBusqueda);  // Ajusta según tu campo de estado en la base de datos
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "Seleccione un criterio de búsqueda válido");
+                }
+            }
+        });
+
+        //=============================================================================================================
+    }
+
+    /* ++++++++++++++++++++++++++++++++++++++++++++++ INICIO METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
+    //METODO 04 ICONO BARRA DE TAREAS
+    // Este método sobrescribe el método getIconImage de la clase JFrame para establecer el icono de la aplicación.
     @Override
-    public void actionPerformed(ActionEvent e) {
-        String filtroSeleccionado = pivtxtget_filtro_opciones.getSelectedItem().toString();
-        String valorBusqueda = pivtxtget_filtro.getText();
-
-        if (valorBusqueda.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese un valor para buscar");
-            return;
-        }
-
-        switch (filtroSeleccionado) {
-            case "# Documento":
-                buscarVisitante("numero_documento_visitante", valorBusqueda);
-                break;
-            case "# Apartamento":
-                buscarVisitantePorApartamento2(valorBusqueda); // Llama al método específico para buscar por apartamento
-                break;
-            case "Nombre Visitante":
-                buscarVisitante("nombre_visitante", valorBusqueda);
-                break;
-            case "Placa Vehicular":
-                buscarVisitante("placa_vehicular", valorBusqueda);
-                break;
-            case "Fecha":
-                buscarVisitante("fecha", valorBusqueda);  // Ajusta según tu campo de fecha en la base de datos
-                break;
-            case "Estado visitante":
-                buscarVisitante("estado_visitante", valorBusqueda);  // Ajusta según tu campo de estado en la base de datos
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "Seleccione un criterio de búsqueda válido");
-        }
-    }
-});
-
-        /*---------------------------------------------------------------------------------------------------------*/
+    public Image getIconImage() {
+        // Obtener la imagen del icono usando el recurso del archivo ico_barratareas_1.png
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("com/iconos/ico_barratareas_1.png"));
+        // Devolver la imagen del icono para ser usada como el icono predeterminado para la ventana
+        return retValue;
     }
 
-    /* +++++++++++++++++++++++++++++++++++++ Inicia DECLARACION DE METODOS +++++++++++++++++++++++++++++++++++++ */
-//--------------------------------------------------------------------------------------------------------| 
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     /*[CODIGO DE JOPTION>JTEXTFIELD>JBUTTON][PARTE 1] */
     // Método general para buscar visitantes por diferentes criterios
     public void buscarVisitante(String criterio, String valor) {
@@ -241,41 +253,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex.printStackTrace(); // Manejo adecuado de la excepción
         }
     }
-
-//--------------------------------------------------------------------------------------------------------| 
-    public void buscarVisitantePorApartamento(String numApartamento1) {
-    try {
-        // Validar que se haya ingresado un apartamento
-        if (numApartamento1.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese un apartamento");
-            return;
-        }
-
-        String consulta_buscarVisitantePorApartamento = "SELECT * FROM ta4_control_peatonal WHERE numero_apartamento = ?";
-        try (PreparedStatement pst = cn.prepareStatement(consulta_buscarVisitantePorApartamento)) {
-            pst.setString(1, numApartamento1);
-
-            try (ResultSet rs = pst.executeQuery()) {
-                // Actualizar la tabla con los resultados de la búsqueda
-//                actualizarTablaConResultados(rs);
-            }
-        }
-    } catch (SQLException ex_buscarVisitantePorNumeroDocumento) {
-        ex_buscarVisitantePorNumeroDocumento.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-    }
-}
-
-//--------------------------------------------------------------------------------------------------------|        
-//METODO 04 ICONO BARRA DE TAREAS
-// Este método sobrescribe el método getIconImage de la clase JFrame para establecer el icono de la aplicación.
-    @Override
-    public Image getIconImage() {
-        // Obtener la imagen del icono usando el recurso del archivo ico_barratareas_1.png
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("com/iconos/ico_barratareas_1.png"));
-        // Devolver la imagen del icono para ser usada como el icono predeterminado para la ventana
-        return retValue;
-    }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Metodo validar jTextField solo acepte numeros (sin espacios)
 
     public class NumberOnlyFilter extends DocumentFilter {
@@ -314,9 +292,9 @@ public final class v2_home extends javax.swing.JFrame {
             super.replace(fb, offset, length, newStr, attrs);
         }
     }
-//--------------------------------------------------------------------------------------------------------|
-    // Metodo validar jTextField solo acepte caracteres (sin espacios)
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    // Metodo validar jTextField solo acepte caracteres (sin espacios)
     public class LetterOnlyFilter extends DocumentFilter {
 
         @Override
@@ -347,7 +325,7 @@ public final class v2_home extends javax.swing.JFrame {
             super.replace(fb, offset, length, newStr, attrs);
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Metodo validar jTextField solo acepte caracteres (con espacios)
 
     public class LetterSpaceFilter extends DocumentFilter {
@@ -380,7 +358,7 @@ public final class v2_home extends javax.swing.JFrame {
             super.replace(fb, offset, length, newStr, attrs);
         }
     }
-//--------------------------------------------------------------------------------------------------------| 
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
 
     private void metSetV1Ajuste() {
@@ -388,8 +366,8 @@ public final class v2_home extends javax.swing.JFrame {
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
     }
-//--------------------------------------------------------------------------------------------------------|
-// Metodo panel control peatonal registro de visitantes
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // METODO: VISITANTES > REGISTAR INGRESO VISITANTE
 
     public void metRegistrarUsuario() {
         // Obtener los valores de los campos de entrada
@@ -462,7 +440,8 @@ public final class v2_home extends javax.swing.JFrame {
         pivtxtget_motivo_visita.setText("");
         piv_jComboBox_quien_autoriza.setSelectedItem(null);
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // METODO: CORRESPONDENCIA > REGISTRAR INGRESO CORRESPONDENCIA
 
     public void metRegistrarCorrespondencia() {
         // Obtener los valores de los campos de entrada
@@ -529,8 +508,8 @@ public final class v2_home extends javax.swing.JFrame {
         pivtxtget_motivo_visita.setText("");
         piv_jComboBox_quien_autoriza.setSelectedItem(null);
     }
-//--------------------------------------------------------------------------------------------------------|
-    // (ventana control vehicular propietarios) [metodo registrar ingreso vehicular propietarios]
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // METODO: VEHICULAR PROPIETARIOS > REGISTRAR INGRESO VEHICULAR
 
     private void metRegistroIngresoVehicularPropietarios() {
         // (ventana control vehicular propietarios)[metodo realizar ingreso vehicular propietarios]
@@ -596,7 +575,8 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // METODO: VISITANTES > ACTUALIZAR USUARIO VISITANTE
     public void actualizarUsuario() {
         // Obtén los datos del formulario
         String actualizarNombreVisitante = pivtxtget_nombre_visitante.getText().toUpperCase();
@@ -648,8 +628,8 @@ public final class v2_home extends javax.swing.JFrame {
         pivtxtget_motivo_visita.setText("");
         piv_jComboBox_quien_autoriza.setSelectedItem(null);
     }
-//--------------------------------------------------------------------------------------------------------|
-    // v2_home (Panel control peatonal)(Jtable)
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // METODO: v2_home > VISITANTES > MOSTRAR VISITANTES REGISTRADOS EN JTABLE
 
     public void mostrarVisitantesRegistrados(JTable tablaIngresoVisitantes) {
         try {
@@ -755,8 +735,7 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------|
-    //--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Método para mostrar los resultados de la búsqueda en una nueva tabla
     private void mostrarResultadosEnNuevaTabla(ResultSet rs) {
         try {
@@ -870,8 +849,7 @@ public final class v2_home extends javax.swing.JFrame {
         mostrarTablaPredeterminada();
     }
 
-    //--------------------------------------------------------------------------------------------------------|
-    //--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void mostrarCorrespondenciaRegistrada(JTable tablaIngresoCorrespondencia) {
         try {
             // Consulta para obtener los visitantes registrados
@@ -972,7 +950,7 @@ public final class v2_home extends javax.swing.JFrame {
             System.out.println("Error al mostrar los visitantes registrados --> mostrarVisitantesRegistrados() : " + ex_11);
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void mostrarIngresoVehicularPropietarios(JTable tablaIngresoVehicular) {
         try {
@@ -1086,7 +1064,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_mostrarIngresoVehicularPropietarios.printStackTrace();
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //Version 1
 //    public void buscarVisitantePorNumeroDocumento() {
 //        try {
@@ -1176,7 +1154,7 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //Version 1
 //    public void buscarVisitantePorPlacaVehicular() {
 //        try {
@@ -1263,7 +1241,7 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void buscarVisitantePorApartamento2(String numApartamento1) {
         try {
             // Validar que se haya ingresado un apartamento
@@ -1305,7 +1283,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_buscarVisitantePorNumeroDocumento.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void buscarVisitantePorNombre(String buscarNombres) {
         try {
@@ -1353,7 +1331,7 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void buscarVisitantePorEstado(String buscarEstado) {
         try {
             // Validar que se haya ingresado un Estado
@@ -1398,7 +1376,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_buscarVisitantePorEstado.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void buscarVisitantePorFecha(String buscarFecha) {
         try {
@@ -1440,9 +1418,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_buscarVisitantePorFecha.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
-//--------------------------------------------------------------------------------------------------------|
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void buscarCorrespondenciaPorNumeroGuia() {
         try {
@@ -1491,7 +1467,7 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-    /*---------------------------------------------------------------------------------------------------------*/
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     private void buscarVehicularPropietarioPorPlaca() {
         try {
             // Obtener la placa vehicular del JTextField
@@ -1548,7 +1524,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_buscarVehicularPropietarioPorPlaca.printStackTrace();
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //(ventana control peatonal)[metodo salida peatonal]
 
     public void realizarSalidaVisitante() {
@@ -1611,7 +1587,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_13.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //(ventana control correspondencia)[metodo reealizar salida correspondencia]
 
     public void realizarSalidaCorrespondencia() {
@@ -1687,7 +1663,7 @@ public final class v2_home extends javax.swing.JFrame {
             ex_13.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //(ventana control vehicular propietarios)[metodo realizar salida propietarios]
 
     private void realizarSalidaVehicularPropietarios() {
@@ -1772,7 +1748,7 @@ public final class v2_home extends javax.swing.JFrame {
         piptxtget_vehicular_observacion.setText("");
     }
 
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void cargarApartamentosVisitantes() {
         //Carga de apartamentos para panel ingreso salida visitantes
         try {
@@ -1797,7 +1773,7 @@ public final class v2_home extends javax.swing.JFrame {
         }
     }
 
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void cargarApartamentosCorrespondencia() {
         //Carga de apartamentos para panel ingreso salida correspondencia
         try {
@@ -1821,7 +1797,7 @@ public final class v2_home extends javax.swing.JFrame {
             // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void cargarApartamentosVehicularPropietarios() {
         //Carga de apartamentos para panel ingreso salida correspondencia
@@ -1846,7 +1822,7 @@ public final class v2_home extends javax.swing.JFrame {
             // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void cargarPropietariosPorApartamentoVisitantes(String numeroApartamentoVisitantes) {
         //Carga de apartamentos para panel ingreso salida visitantes
@@ -1875,7 +1851,7 @@ public final class v2_home extends javax.swing.JFrame {
             // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void cargarPropietariosPorApartamentoCorrespondencia(String numeroApartamentoCorrespondencia) {
         //Carga de apartamentos para panel ingreso salida correspondencia
@@ -1904,7 +1880,7 @@ public final class v2_home extends javax.swing.JFrame {
             // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void cargarPropietariosPorApartamentoVehicularPropietarios(String numeroApartamentoVehicularPropietarios) {
         //Carga de apartamentos para panel ingreso salida correspondencia
@@ -1935,7 +1911,7 @@ public final class v2_home extends javax.swing.JFrame {
             // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-//--------------------------------------------------------------------------------------------------------|
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void enviarCorreo(String proveedor, String remitente, String contraseña, String destinatario, String asunto, String mensaje) {
         // Configuración de la conexión al servidor de correo
@@ -1975,10 +1951,9 @@ public final class v2_home extends javax.swing.JFrame {
             System.out.println("Error al enviar correo: " + ex33);
         }
     }
-//--------------------------------------------------------------------------------------------------------|
-
-    /*---------------------------------------------------------------------------------------------------------*/
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //[Este código debería mantener el color del botón seleccionado hasta que otro botón sea activado]
+
     private void actualizarEstilosBotones() {
         if (estaVisitanteActivo) {
             panel_btn_visitante.setBackground(new Color(213, 219, 219));
@@ -2012,7 +1987,7 @@ public final class v2_home extends javax.swing.JFrame {
         // Repite para los otros botones
     }
 
-    /*---------------------------------------------------------------------------------------------------------*/
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Método que se llama cuando se realiza una acción en el JComboBox o se presiona una tecla en el JTextField
     public void filtrarDatos() {
         String seleccion = pivtxtget_filtro_opciones.getSelectedItem().toString();
@@ -2037,16 +2012,12 @@ public final class v2_home extends javax.swing.JFrame {
         }
 
     }
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+/* ++++++++++++++++++++++++++++++++++++++++++++++ FINALIZA METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
 
-    /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
- /*---------------------------------------------------------------------------------------------------------*/
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
