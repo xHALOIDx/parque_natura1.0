@@ -178,22 +178,22 @@ public final class v2_home extends javax.swing.JFrame {
 
                 switch (filtroSeleccionado) {
                     case "# Documento":
-                        buscarVisitante("numero_documento_visitante", valorBusqueda);
+                        metBuscarVisitantePorFiltros("numero_documento_visitante", valorBusqueda);
                         break;
                     case "# Apartamento":
-                        buscarVisitantePorApartamento2(valorBusqueda); // Llama al método específico para buscar por apartamento
+                        metBuscarVisitantePorApartamento(valorBusqueda); // Llama al método específico para buscar por apartamento
                         break;
                     case "Nombre Visitante":
-                        buscarVisitante("nombre_visitante", valorBusqueda);
+                        metBuscarVisitantePorFiltros("nombre_visitante", valorBusqueda);
                         break;
                     case "Placa Vehicular":
-                        buscarVisitante("placa_vehicular", valorBusqueda);
+                        metBuscarVisitantePorFiltros("placa_vehicular", valorBusqueda);
                         break;
                     case "Fecha":
-                        buscarVisitante("fecha", valorBusqueda);  // Ajusta según tu campo de fecha en la base de datos
+                        metBuscarVisitantePorFiltros("fecha", valorBusqueda);  // Ajusta según tu campo de fecha en la base de datos
                         break;
                     case "Estado visitante":
-                        buscarVisitante("estado_visitante", valorBusqueda);  // Ajusta según tu campo de estado en la base de datos
+                        metBuscarVisitantePorFiltros("estado_visitante", valorBusqueda);  // Ajusta según tu campo de estado en la base de datos
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Seleccione un criterio de búsqueda válido");
@@ -219,7 +219,7 @@ public final class v2_home extends javax.swing.JFrame {
 
     /*[CODIGO DE JOPTION>JTEXTFIELD>JBUTTON][PARTE 1] */
     // Método general para buscar visitantes por diferentes criterios
-    public void buscarVisitante(String criterio, String valor) {
+    public void metBuscarVisitantePorFiltros(String criterio, String valor) {
         String consulta = "SELECT * FROM ta4_control_peatonal WHERE " + criterio + " = ?";
 
         try (PreparedStatement pst = cn.prepareStatement(consulta)) {
@@ -954,148 +954,18 @@ public final class v2_home extends javax.swing.JFrame {
     }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    public void buscarVisitantePorNumeroDocumento(String numeroDocumento1) {
-        try {
-            // Validar que se haya ingresado un número de documento
-            if (numeroDocumento1.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese un número de documento");
-                return;
-            }
-
-            String consulta_buscarVisitantePorNumeroDocumento = "SELECT * FROM ta4_control_peatonal WHERE numero_documento_visitante = ?";
-            try (PreparedStatement pst = cn.prepareStatement(consulta_buscarVisitantePorNumeroDocumento)) {
-                pst.setString(1, numeroDocumento1);
-
-                try (ResultSet rs = pst.executeQuery()) {
-                    if (rs.next()) {
-                        // El visitante está registrado, recuperar los datos y mostrarlos en la UI
-                        String nombreVisitante = rs.getString("nombre_visitante");
-
-                        String numeroApartamento = rs.getString("numero_apartamento");
-                        String placaVehicular = rs.getString("placa_vehicular");
-                        String motivoVisita = rs.getString("motivo_visita");
-                        String quienAutoriza = rs.getString("quien_autoriza");
-                        // ... continuar con los demás campos
-
-                        // Mostrar los datos en la UI
-                        pivtxtget_nombre_visitante.setText(nombreVisitante);
-                        pivtxtget_numero_documento_visitante.setText(numeroDocumento1);
-                        pivjComboBoxget_apto.setSelectedItem(numeroApartamento);
-                        pivtxtget_placa.setText(placaVehicular);
-                        pivtxtget_motivo_visita.setText(motivoVisita);
-                        piv_jComboBox_quien_autoriza.setSelectedItem(quienAutoriza);
-
-                        // ... continuar con los demás campos
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Visitante no encontrado");
-                    }
-                }
-            }
-        } catch (SQLException ex_buscarVisitantePorNumeroDocumento) {
-            ex_buscarVisitantePorNumeroDocumento.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-        }
-    }
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //Version 1
-//    public void buscarVisitantePorPlacaVehicular() {
-//        try {
-//            // Obtener la placa vehicular del JTextField
-//            String placaVehicular = pivtxtget_placa.getText();
-//
-//            // Validar que se haya ingresado una placa vehicular
-//            if (placaVehicular.isEmpty()) {
-//                JOptionPane.showMessageDialog(null, "Ingrese una placa vehicular");
-//                return;
-//            }
-//
-//            String consulta = "SELECT * FROM ta4_control_peatonal WHERE placa_vehicular = ?";
-//            try (PreparedStatement pst = cn.prepareStatement(consulta)) {
-//                pst.setString(1, placaVehicular);
-//
-//                try (ResultSet rs = pst.executeQuery()) {
-//                    if (rs.next()) {
-//                        // El visitante está registrado, recuperar los datos y mostrarlos en la UI
-//                        // Por ejemplo:
-//                        String nombreVisitante = rs.getString("nombre_visitante");
-//                        String nombreDocumento = rs.getString("numero_documento_visitante");
-//                        String numeroApartamento = rs.getString("numero_apartamento");
-////                    String placaVehicular = rs.getString("placa_vehicular");
-//                        String motivoVisita = rs.getString("motivo_visita");
-//                        String quienAutoriza = rs.getString("quien_autoriza");
-//                        // ... continuar con los demás campos
-//
-//                        // Mostrar los datos en la UI, por ejemplo:
-//                        pivtxtget_nombre_visitante.setText(nombreVisitante);
-//                        pivtxtget_numero_documento_visitante.setText(nombreDocumento);
-//                        pivjComboBoxget_apto.setSelectedItem(numeroApartamento);
-////                    pivtxtget_placa.setText(placaVehicular);
-//                        pivtxtget_motivo_visita.setText(motivoVisita);
-//                        piv_jComboBox_quien_autoriza.setSelectedItem(quienAutoriza);
-//                        // ... continuar con los demás campos
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "El visitante nunca ha ingresado");
-//                    }
-//                }
-//            }
-//        } catch (SQLException ex_10) {
-//            ex_10.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-//        }
-//    }
-    //Version 2
-    public void buscarVisitantePorPlacaVehicular(String placaVehicular1) {
-        try {
-            // Validar que se haya ingresado una placa vehicular
-            if (placaVehicular1.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese una placa vehicular");
-                return;
-            }
-
-            String consulta_buscarVisitantePorPlacaVehicular = "SELECT * FROM ta4_control_peatonal WHERE placa_vehicular = ?";
-            try (PreparedStatement pst = cn.prepareStatement(consulta_buscarVisitantePorPlacaVehicular)) {
-                pst.setString(1, placaVehicular1);
-
-                try (ResultSet rs = pst.executeQuery()) {
-                    if (rs.next()) {
-                        // El visitante está registrado, recuperar los datos y mostrarlos en la UI
-                        String nombreVisitante = rs.getString("nombre_visitante");
-                        String numeroDocumento = rs.getString("numero_documento_visitante");
-                        String numeroApartamento = rs.getString("numero_apartamento");
-                        String motivoVisita = rs.getString("motivo_visita");
-                        String quienAutoriza = rs.getString("quien_autoriza");
-                        // ... continuar con los demás campos
-
-                        // Mostrar los datos en la UI
-                        pivtxtget_nombre_visitante.setText(nombreVisitante);
-                        pivtxtget_numero_documento_visitante.setText(numeroDocumento);
-                        pivjComboBoxget_apto.setSelectedItem(numeroApartamento);
-                        pivtxtget_motivo_visita.setText(motivoVisita);
-                        piv_jComboBox_quien_autoriza.setSelectedItem(quienAutoriza);
-                        pivtxtget_placa.setText(placaVehicular1);
-                        // ... continuar con los demás campos
-                    } else {
-                        JOptionPane.showMessageDialog(null, "El visitante con la placa vehicular ingresada no ha sido registrado");
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
-        }
-    }
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public void buscarVisitantePorApartamento2(String numApartamento1) {
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void metBuscarVisitantePorApartamento(String numApartamento) {
         try {
             // Validar que se haya ingresado un apartamento
-            if (numApartamento1.isEmpty()) {
+            if (numApartamento.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Ingrese un apartamento");
                 return;
             }
 
             String consulta_buscarVisitantePorApartamento = "SELECT * FROM ta4_control_peatonal WHERE numero_apartamento = ?";
             try (PreparedStatement pst = cn.prepareStatement(consulta_buscarVisitantePorApartamento)) {
-                pst.setString(1, numApartamento1);
+                pst.setString(1, numApartamento);
 
                 try (ResultSet rs = pst.executeQuery()) {
                     if (rs.next()) {
@@ -1111,7 +981,7 @@ public final class v2_home extends javax.swing.JFrame {
                         // Mostrar los datos en la UI
                         pivtxtget_nombre_visitante.setText(nombreVisitante);
                         pivtxtget_numero_documento_visitante.setText(numeroDocumento);
-                        pivjComboBoxget_apto.setSelectedItem(numApartamento1);
+                        pivjComboBoxget_apto.setSelectedItem(numApartamento);
                         pivtxtget_placa.setText(placaVehicular);
                         pivtxtget_motivo_visita.setText(motivoVisita);
                         piv_jComboBox_quien_autoriza.setSelectedItem(quienAutoriza);
@@ -1126,8 +996,55 @@ public final class v2_home extends javax.swing.JFrame {
             ex_buscarVisitantePorNumeroDocumento.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //METODO : VISITANTE > BUSCAR VISITANTE POR PLACA VEHICULAR (ARCHIVADO)
+    /*public void buscarVisitantePorPlacaVehicular() {
+        try {
+            // Obtener la placa vehicular del JTextField
+            String placaVehicular = pivtxtget_placa.getText();
+
+            // Validar que se haya ingresado una placa vehicular
+            if (placaVehicular.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Ingrese una placa vehicular");
+                return;
+            }
+
+            String consulta = "SELECT * FROM ta4_control_peatonal WHERE placa_vehicular = ?";
+            try (PreparedStatement pst = cn.prepareStatement(consulta)) {
+                pst.setString(1, placaVehicular);
+
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        // El visitante está registrado, recuperar los datos y mostrarlos en la UI
+                        // Por ejemplo:
+                        String nombreVisitante = rs.getString("nombre_visitante");
+                        String nombreDocumento = rs.getString("numero_documento_visitante");
+                        String numeroApartamento = rs.getString("numero_apartamento");
+//                    String placaVehicular = rs.getString("placa_vehicular");
+                        String motivoVisita = rs.getString("motivo_visita");
+                        String quienAutoriza = rs.getString("quien_autoriza");
+                        // ... continuar con los demás campos
+
+                        // Mostrar los datos en la UI, por ejemplo:
+                        pivtxtget_nombre_visitante.setText(nombreVisitante);
+                        pivtxtget_numero_documento_visitante.setText(nombreDocumento);
+                        pivjComboBoxget_apto.setSelectedItem(numeroApartamento);
+//                    pivtxtget_placa.setText(placaVehicular);
+                        pivtxtget_motivo_visita.setText(motivoVisita);
+                        piv_jComboBox_quien_autoriza.setSelectedItem(quienAutoriza);
+                        // ... continuar con los demás campos
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El visitante nunca ha ingresado");
+                    }
+                }
+            }
+        } catch (SQLException ex_10) {
+            ex_10.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
+        }
+    }*/
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    /*//METODO: BUSCAR VISITANTE POR NOMBRE (ARCHIVADO)
     public void buscarVisitantePorNombre(String buscarNombres) {
         try {
             // Validar que se haya ingresado un nombre
@@ -1172,9 +1089,10 @@ public final class v2_home extends javax.swing.JFrame {
         } catch (SQLException ex_buscarVisitantePorNombre) {
             ex_buscarVisitantePorNombre.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
-    }
+    }*/
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    /*//METODO: BUSCAR VISITANTE POR ESTADO (ARCHIVADO)
     public void buscarVisitantePorEstado(String buscarEstado) {
         try {
             // Validar que se haya ingresado un Estado
@@ -1218,8 +1136,9 @@ public final class v2_home extends javax.swing.JFrame {
         } catch (SQLException ex_buscarVisitantePorEstado) {
             ex_buscarVisitantePorEstado.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
-    }
+    }*/
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    /*//METODO: BUSCAR VISITANTE POR FECHA (ARCHIVADO)
 
     public void buscarVisitantePorFecha(String buscarFecha) {
         try {
@@ -1260,9 +1179,8 @@ public final class v2_home extends javax.swing.JFrame {
         } catch (SQLException ex_buscarVisitantePorFecha) {
             ex_buscarVisitantePorFecha.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
-    }
+    }*/
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
     public void metBuscarCorrespondenciaPorNumeroGuia() {
         try {
             // Obtener el número de guía del JTextField
@@ -1831,36 +1749,11 @@ public final class v2_home extends javax.swing.JFrame {
     }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // Método que se llama cuando se realiza una acción en el JComboBox o se presiona una tecla en el JTextField
-    public void filtrarDatos() {
-        String seleccion = pivtxtget_filtro_opciones.getSelectedItem().toString();
-        String filtro = pivtxtget_filtro.getText();
-
-        // Lógica para filtrar los datos en la tabla según la selección y el texto de filtro
-        // Puedes usar un switch case para manejar diferentes tipos de filtros
-        switch (seleccion) {
-            case "# Documento":
-                // Filtrar por número de documento                       
-                break;
-            case "# Apartamento":
-                // Filtrar por número de apartamento
-                break;
-            case "Nombre Visitante":
-                // Filtrar por nombre del visitante
-                break;
-            case "Placa Vehicular":
-                // Filtrar por placa vehicular
-                break;
-            // Agregar más casos según sea necesario
-        }
-
-    }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
 /* ++++++++++++++++++++++++++++++++++++++++++++++ FINALIZA METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
