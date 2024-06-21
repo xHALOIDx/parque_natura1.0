@@ -1,3 +1,4 @@
+//=============================================================================================================
 package com.code;
 
 import static com.code.v2_home.piptxtget_vigilante;
@@ -17,7 +18,12 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import static com.code.v2_home.pivtxtget_vigilante;
 import static com.code.v2_home.pictxtget_vigilante;
+//=============================================================================================================
 
+/**
+ *
+ * @author luise
+ */
 public class v1_login extends javax.swing.JFrame {
 
     /* |||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar) |||||||||||||||||||||||||||||||||| */
@@ -28,17 +34,17 @@ public class v1_login extends javax.swing.JFrame {
     String v1_capturar_nombre;
     String v1_capturar_apellido;
 
-
-    /* |||||||||||||||||||||||||||||||||| Cierra Llamando conexion (conectar) |||||||||||||||||||||||||||||||||| */
+    /*||||||||||||||||||||||||||||||||||||| Finaliza Llamando conexion (conectar)|||||||||||||||||||||||||||||||||*/
+    //=============================================================================================================
     public v1_login() {
         initComponents();
-        //--------------------------------------------------------------------------------------------------------| 
+        //=============================================================================================================| 
         //METODO 01 Establece el título de la ventana principal
         this.setTitle("Ser Seguridad SICOVP");
-        //--------------------------------------------------------------------------------------------------------| 
+        //=============================================================================================================|
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
-        //--------------------------------------------------------------------------------------------------------|   
+        //=============================================================================================================|   
         // Metodo 03 Confirmacion cerrar ventana actual: 
         //Configuramos la acción que sucede al hacer clic en el botón "X" de la ventana
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -55,9 +61,12 @@ public class v1_login extends javax.swing.JFrame {
                 }
             }
         });
-        //--------------------------------------------------------------------------------------------------------| 
+        //=============================================================================================================|
     }
-//--------------------------------------------------------------------------------------------------------|    
+    //=============================================================================================================
+
+    /* ++++++++++++++++++++++++++++++++++++++++++++++ INICIO METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|    
 //METODO 04 ICONO BARRA DE TAREAS
 // Este método sobrescribe el método getIconImage de la clase JFrame para establecer el icono de la aplicación.
     @Override
@@ -67,10 +76,9 @@ public class v1_login extends javax.swing.JFrame {
         // Devolver la imagen del icono para ser usada como el icono predeterminado para la ventana
         return retValue;
     }
-//--------------------------------------------------------------------------------------------------------|    
-//--------------------------------------------------------------------------------------------------------|
-//METODO validador de jTextField que solo acepte números (sin espacios)utilizando un DocumentFilter en Java
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|    
 
+//METODO validador de jTextField que solo acepte números (sin espacios)utilizando un DocumentFilter en Java
     public class NumberOnlyFilter extends DocumentFilter {
         // Método que se llama al momento de insertar un nuevo carácter
 
@@ -107,10 +115,9 @@ public class v1_login extends javax.swing.JFrame {
             super.replace(fb, offset, length, newStr, attrs);
         }
     }
-//--------------------------------------------------------------------------------------------------------|
-//--------------------------------------------------------------------------------------------------------| 
-//METODO 06 VALIDAR USUARIO Y CONTRASEÑA
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
 
+//METODO 06 VALIDAR USUARIO Y CONTRASEÑA
     public int metValidarInicioSesion() {
         /*01*//*usuario*/
         String v1_usuario = v1_txt_modulo_usuario.getText();
@@ -136,23 +143,26 @@ public class v1_login extends javax.swing.JFrame {
         }
         return resultado;
     }
-//--------------------------------------------------------------------------------------------------------|  
-//--------------------------------------------------------------------------------------------------------| 
-// Este método se encarga de cerrar el JFrame actual, y mostrar otro
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|   
 
+// Este método se encarga de cerrar el JFrame actual, y mostrar otro
     private void metSetV1AdmLogin() {
         v1_login_admon HALOID = new v1_login_admon();// Creamos una nueva instancia de la vista v1_adm_login  
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
     }
-//--------------------------------------------------------------------------------------------------------|
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
+
     private void metSetV2Home() {
         v2_home HALOID = new v2_home();// Creamos una nueva instancia de la vista v1_adm_login  
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
     }
-//--------------------------------------------------------------------------------------------------------|
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -453,22 +463,22 @@ public class v1_login extends javax.swing.JFrame {
 
 
     private void v1_btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_v1_btn_loginMouseClicked
-       
+
     }//GEN-LAST:event_v1_btn_loginMouseClicked
 
     private void v1_txt_modulo_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_v1_txt_modulo_usuarioKeyTyped
-/* ------------------------------------------- Ini Llamar metodo NumberOnlyFilter -------------------------------------------- */
+        /* ------------------------------------------- Ini Llamar metodo NumberOnlyFilter -------------------------------------------- */
         //Codigo para llamar clase NumberOnlyFilter la cual filtra que se escriba solo numero
         javax.swing.text.AbstractDocument doc
                 = (javax.swing.text.AbstractDocument) v1_txt_modulo_usuario.getDocument();
         doc.setDocumentFilter(new NumberOnlyFilter());
- /* ------------------------------------------- Fin Llamar clase NumberOnlyFilter -------------------------------------------- */
+        /* ------------------------------------------- Fin Llamar clase NumberOnlyFilter -------------------------------------------- */
  /* ------------------------------------------- Ini Validador (Cantidad Caracteres) ----------------------------------------------- */
         //Validador JtexField Cantidad de Caracteres deseados
         if (v1_txt_modulo_usuario.getText().length() == 10) {
             evt.consume();
         }
-/* -------------------------------------------- Fin Validador (Cantidad Caracteres) ----------------------------------------------- */
+        /* -------------------------------------------- Fin Validador (Cantidad Caracteres) ----------------------------------------------- */
     }//GEN-LAST:event_v1_txt_modulo_usuarioKeyTyped
 
     private void v1_btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_btn_loginActionPerformed

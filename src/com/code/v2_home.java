@@ -41,7 +41,7 @@ public final class v2_home extends javax.swing.JFrame {
     /*||||||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar)||||||||||||||||||||||||||||||||||*/
     conexion cc = new conexion();
     Connection cn = cc.conexion();
-    /*|||||||||||||||||||||||||||||||||| Finaliza Llamando conexion (conectar)|||||||||||||||||||||||||||||||||*/
+    /*||||||||||||||||||||||||||||||||||||| Finaliza Llamando conexion (conectar)|||||||||||||||||||||||||||||||||*/
     //=============================================================================================================
     //Variables para guarda estado de los botones (btn_i_visitante, btn_i_correspondencia, btn_i_carro, btn_buscar, btn_acercade)
     //Ubicados en el panel izquierdo [Este código debería mantener el color del botón seleccionado hasta que otro botón sea activado]
@@ -203,6 +203,7 @@ public final class v2_home extends javax.swing.JFrame {
 
         //=============================================================================================================
     }
+    //=============================================================================================================
 
     /* ++++++++++++++++++++++++++++++++++++++++++++++ INICIO METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
     //METODO 04 ICONO BARRA DE TAREAS
@@ -215,7 +216,7 @@ public final class v2_home extends javax.swing.JFrame {
         return retValue;
     }
 
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
 
     /*[CODIGO DE JOPTION>JTEXTFIELD>JBUTTON][PARTE 1] */
     // Método general para buscar visitantes por diferentes criterios
@@ -1090,7 +1091,6 @@ public final class v2_home extends javax.swing.JFrame {
             ex_buscarVisitantePorNombre.printStackTrace(); // Manejo adecuado de la excepción (podría mostrar un mensaje de error al usuario)
         }
     }*/
-
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     /*//METODO: BUSCAR VISITANTE POR ESTADO (ARCHIVADO)
     public void buscarVisitantePorEstado(String buscarEstado) {
