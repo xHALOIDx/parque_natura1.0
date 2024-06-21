@@ -3,7 +3,7 @@ package com.code;
 
 import static com.code.v2_home.piptxtget_vigilante;
 import static com.code.v2_home.v2_txt_set_name_vigilante;
-import com.metodos.conexion;
+import com.metodos.Conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -27,12 +27,18 @@ import static com.code.v2_home.pictxtget_vigilante;
 public class v1_login extends javax.swing.JFrame {
 
     /* |||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar) |||||||||||||||||||||||||||||||||| */
-    //METODO 01 PUENTE DE CONEXION    
-    conexion metodos_conectar = new conexion();
-    Connection metodos_conectar_bd = metodos_conectar.conexion();
-    //VARIABLE GET NOMBRE COMPLETO DATABASE
-    String v1_capturar_nombre;
-    String v1_capturar_apellido;
+    // Instancia de la clase Conexion para manejar la conexión a la base de datos
+    private Conexion conexion = new Conexion();
+    private Connection cn;
+
+    // Variables para capturar el nombre completo desde la base de datos
+    private String v1_capturar_nombre;
+    private String v1_capturar_apellido;
+
+    /**
+     * Constructor de la clase v1_login. Inicializa los componentes y configura
+     * la ventana.
+     */
 
     /*||||||||||||||||||||||||||||||||||||| Finaliza Llamando conexion (conectar)|||||||||||||||||||||||||||||||||*/
     //=============================================================================================================
@@ -40,7 +46,7 @@ public class v1_login extends javax.swing.JFrame {
         initComponents();
         //=============================================================================================================| 
         //METODO 01 Establece el título de la ventana principal
-        this.setTitle("Ser Seguridad SICOVP");
+        this.setTitle("Sicovp Login");
         //=============================================================================================================|
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
@@ -67,18 +73,15 @@ public class v1_login extends javax.swing.JFrame {
 
     /* ++++++++++++++++++++++++++++++++++++++++++++++ INICIO METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|    
-//METODO 04 ICONO BARRA DE TAREAS
+    /* Método para obtener la imagen del icono */
 // Este método sobrescribe el método getIconImage de la clase JFrame para establecer el icono de la aplicación.
     @Override
     public Image getIconImage() {
-        // Obtener la imagen del icono usando el recurso del archivo ico_barratareas_1.png
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("com/iconos/ico_barratareas_1.png"));
-        // Devolver la imagen del icono para ser usada como el icono predeterminado para la ventana
-        return retValue;
+        return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("com/iconos/ico_barratareas_1.png"));
     }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|    
 
-//METODO validador de jTextField que solo acepte números (sin espacios)utilizando un DocumentFilter en Java
+    /* Clase interna para filtrar los caracteres no numéricos en un JTextField. */
     public class NumberOnlyFilter extends DocumentFilter {
         // Método que se llama al momento de insertar un nuevo carácter
 
@@ -117,29 +120,30 @@ public class v1_login extends javax.swing.JFrame {
     }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
 
-//METODO 06 VALIDAR USUARIO Y CONTRASEÑA
+    /* Método para validar el inicio de sesión */
+ /*  @return 1 si el usuario es válido, 0 en caso contrario. */
     public int metValidarInicioSesion() {
-        /*01*//*usuario*/
         String v1_usuario = v1_txt_modulo_usuario.getText();
-        /*02*//*contraseña*/
-        String v1_contraseña = String.valueOf(v1_txt_modulo_contraseña.getPassword());
+        String v1_contraseña = new String(v1_txt_modulo_contraseña.getPassword());
         int resultado = 0;
-        /*CONSULTA BASE DE DATOS*/
         String consulta_01 = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + v1_usuario + "' AND contraseña ='" + v1_contraseña + "'";
-        Connection conect = null;
+
         try {
-            Statement st = metodos_conectar_bd.createStatement();
+            cn = conexion.conexion();
+            Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(consulta_01);
             if (rs.next()) {
                 v1_capturar_nombre = rs.getString("nombres");
                 v1_capturar_apellido = rs.getString("apellidos");
                 resultado = 1;
             }
-        } catch (SQLException ex_01) {
+        } catch (SQLException ex) {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Ha habido un error al intentar conectar con el servidor :" + ex_01,
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.showMessageDialog(null, "Ha habido un error al intentar conectar con el servidor: " + ex,
+                    "                                              Atención", JOptionPane.YES_NO_CANCEL_OPTION,
                     halo_v1);
+        } finally {
+            conexion.cerrarConexion();
         }
         return resultado;
     }
@@ -469,8 +473,7 @@ public class v1_login extends javax.swing.JFrame {
     private void v1_txt_modulo_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_v1_txt_modulo_usuarioKeyTyped
         /* ------------------------------------------- Ini Llamar metodo NumberOnlyFilter -------------------------------------------- */
         //Codigo para llamar clase NumberOnlyFilter la cual filtra que se escriba solo numero
-        javax.swing.text.AbstractDocument doc
-                = (javax.swing.text.AbstractDocument) v1_txt_modulo_usuario.getDocument();
+        javax.swing.text.AbstractDocument doc = (javax.swing.text.AbstractDocument) v1_txt_modulo_usuario.getDocument();
         doc.setDocumentFilter(new NumberOnlyFilter());
         /* ------------------------------------------- Fin Llamar clase NumberOnlyFilter -------------------------------------------- */
  /* ------------------------------------------- Ini Validador (Cantidad Caracteres) ----------------------------------------------- */
@@ -484,33 +487,31 @@ public class v1_login extends javax.swing.JFrame {
     private void v1_btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_btn_loginActionPerformed
         //METODO LOGIN
         if (metValidarInicioSesion() == 1) {
-            metSetV2Home();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
+            metSetV2Home();
             v2_txt_set_name_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
             pivtxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
             pictxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
             piptxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesión [Usuario o contraseña incorrecta]",
+                    "                                              Atención", JOptionPane.YES_NO_CANCEL_OPTION,
                     halo_v1);
         }
     }//GEN-LAST:event_v1_btn_loginActionPerformed
 
     private void v1_txt_modulo_contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_txt_modulo_contraseñaActionPerformed
         //METODO LOGIN
-        if (metValidarInicioSesion() == 1) {
-            metSetV2Home();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
+         if (metValidarInicioSesion() == 1) {
+            metSetV2Home();
             v2_txt_set_name_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
             pivtxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
             pictxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
             piptxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesión [Usuario o contraseña incorrecta]",
+                    "                                              Atención", JOptionPane.YES_NO_CANCEL_OPTION,
                     halo_v1);
         }
     }//GEN-LAST:event_v1_txt_modulo_contraseñaActionPerformed
