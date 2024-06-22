@@ -51,6 +51,7 @@ public final class U5Home extends javax.swing.JFrame {
     private boolean estaBuscarActivo = false;
     private boolean estaAcercaDeActivo = false;
 
+
     //=============================================================================================================
     public U5Home() {
         initComponents();
@@ -1779,7 +1780,7 @@ public final class U5Home extends javax.swing.JFrame {
         btn_acercade = new javax.swing.JButton();
         jSeparator14 = new javax.swing.JSeparator();
         panel_info_usuario = new javax.swing.JPanel();
-        v2_txt_set_name_vigilante = new javax.swing.JLabel();
+        txtU5MotrarNombreUsuario = new javax.swing.JLabel();
         jCPanel1 = new com.bolivia.panel.JCPanel();
         jSeparator15 = new javax.swing.JSeparator();
         panel_rigth = new javax.swing.JPanel();
@@ -2162,8 +2163,8 @@ public final class U5Home extends javax.swing.JFrame {
 
         panel_info_usuario.setBackground(new java.awt.Color(0, 0, 0));
 
-        v2_txt_set_name_vigilante.setForeground(new java.awt.Color(255, 255, 255));
-        v2_txt_set_name_vigilante.setText("v2_txt_set_name_vigilante");
+        txtU5MotrarNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtU5MotrarNombreUsuario.setText("txtU5MotrarNombreUsuario");
 
         jCPanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_vigilante.png"))); // NOI18N
 
@@ -2186,7 +2187,7 @@ public final class U5Home extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(v2_txt_set_name_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                .addComponent(txtU5MotrarNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
         );
         panel_info_usuarioLayout.setVerticalGroup(
             panel_info_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2196,7 +2197,7 @@ public final class U5Home extends javax.swing.JFrame {
                     .addGroup(panel_info_usuarioLayout.createSequentialGroup()
                         .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(v2_txt_set_name_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtU5MotrarNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout panel_leftLayout = new javax.swing.GroupLayout(panel_left);
@@ -4026,6 +4027,6 @@ public final class U5Home extends javax.swing.JFrame {
     private javax.swing.JLabel sub_panel_titulo_txt_titulo1;
     private javax.swing.JLabel sub_panel_titulo_txt_titulo2;
     private javax.swing.JPanel subpanel_titulo2;
-    public static javax.swing.JLabel v2_txt_set_name_vigilante;
+    public static javax.swing.JLabel txtU5MotrarNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }

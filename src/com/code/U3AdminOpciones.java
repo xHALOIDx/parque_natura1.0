@@ -1,6 +1,6 @@
 package com.code;
 
-import static com.code.U4AdminAjustes.v1_ajuste_registro_name_vigilante;
+import static com.code.U4AdminAjuste.lvlU4AdminAjuste;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -58,8 +58,8 @@ public class U3AdminOpciones extends javax.swing.JFrame {
 //--------------------------------------------------------------------------------------------------------|
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
 
-    private void metSetV1AjusteRegistro() {
-        U4AdminAjustes HALOID = new U4AdminAjustes();// Creamos una nueva instancia de la vista v1_adm_login  
+    private void metSetU4AdminAjuste() {
+        U4AdminAjuste HALOID = new U4AdminAjuste();// Creamos una nueva instancia de la vista v1_adm_login  
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
     }
@@ -91,7 +91,7 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         txt_fondo_baner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jCPanel1 = new com.bolivia.panel.JCPanel();
-        v1_login_admon_ajuste_name_vigilante = new javax.swing.JLabel();
+        txt_u4_nombre_vigilante = new javax.swing.JLabel();
         jPanel_m_añadir = new javax.swing.JPanel();
         txt_m_administrar1 = new javax.swing.JLabel();
         jCPanel_m_administrar1 = new com.bolivia.panel.JCPanel();
@@ -138,9 +138,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGap(0, 45, Short.MAX_VALUE)
         );
 
-        v1_login_admon_ajuste_name_vigilante.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        v1_login_admon_ajuste_name_vigilante.setForeground(new java.awt.Color(255, 255, 255));
-        v1_login_admon_ajuste_name_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
+        txt_u4_nombre_vigilante.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txt_u4_nombre_vigilante.setForeground(new java.awt.Color(255, 255, 255));
+        txt_u4_nombre_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
 
         javax.swing.GroupLayout jPanel_fondo_banerLayout = new javax.swing.GroupLayout(jPanel_fondo_baner);
         jPanel_fondo_baner.setLayout(jPanel_fondo_banerLayout);
@@ -154,7 +154,7 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(v1_login_admon_ajuste_name_vigilante)
+                .addComponent(txt_u4_nombre_vigilante)
                 .addContainerGap())
         );
         jPanel_fondo_banerLayout.setVerticalGroup(
@@ -167,7 +167,7 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                         .addGap(0, 2, Short.MAX_VALUE))
                     .addComponent(txt_fondo_baner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(v1_login_admon_ajuste_name_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txt_u4_nombre_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jCPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
@@ -345,9 +345,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
 
     private void jPanel_m_añadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadirMouseClicked
         /* ----------------------------------------------- Ini Boton (Administrar)  ----------------------------------------------- */
-        metSetV1AjusteRegistro();//Invocar metodo
-        v1_login_admon_ajuste_capturar_nombre = v1_login_admon_ajuste_name_vigilante.getText();//pedir nombres y guardarlo
-        v1_ajuste_registro_name_vigilante.setText(v1_login_admon_ajuste_capturar_nombre);//Enviar nombre guardado a otra ventana
+        metSetU4AdminAjuste();//Invocar metodo
+        v1_login_admon_ajuste_capturar_nombre = txt_u4_nombre_vigilante.getText();//pedir nombres y guardarlo
+        v1_ajuste_registro_name_vigilante.setText(lvlU4AdminAjuste);//Enviar nombre guardado a otra ventana
         /* ----------------------------------------------- Fin Boton (Administrar)  ----------------------------------------------- */
     }//GEN-LAST:event_jPanel_m_añadirMouseClicked
 
@@ -429,6 +429,6 @@ public class U3AdminOpciones extends javax.swing.JFrame {
     private javax.swing.JLabel txt_fondo_baner;
     private javax.swing.JLabel txt_m_administrar1;
     private javax.swing.JLabel txt_m_administrar2;
-    public static javax.swing.JLabel v1_login_admon_ajuste_name_vigilante;
+    public static javax.swing.JLabel txt_u4_nombre_vigilante;
     // End of variables declaration//GEN-END:variables
 }

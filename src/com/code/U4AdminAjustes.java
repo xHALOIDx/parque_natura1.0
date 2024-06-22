@@ -1,6 +1,5 @@
 package com.code;
 
-import static com.code.U3AdminOpciones.v1_login_admon_ajuste_name_vigilante;
 import com.metodos.conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -33,6 +32,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import static com.code.U3AdminOpciones.txt_u4_nombre_vigilante;
 
 /**
  *
@@ -1055,7 +1055,7 @@ public final class U4AdminAjustes extends javax.swing.JFrame {
         metSetV1Ajuste();//Invocar metodo
         //v1_ajuste_registro_capturar_nombre
         v1_ajuste_registro_capturar_nombre = v1_ajuste_registro_name_vigilante.getText();//pedir nombres y guardarlo
-        v1_login_admon_ajuste_name_vigilante.setText(v1_ajuste_registro_capturar_nombre);//Enviar nombre guardado a otra ventana
+        txt_u4_nombre_vigilante.setText(v1_ajuste_registro_capturar_nombre);//Enviar nombre guardado a otra ventana
 
         /* ----------------------------------------------- Fin Boton (home)  ----------------------------------------------- */
     }//GEN-LAST:event_jButton1MouseClicked

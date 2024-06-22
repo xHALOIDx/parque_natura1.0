@@ -1,24 +1,531 @@
-
+//=============================================================================================================
 package com.code;
+
+import com.metodos.conexion;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import static com.code.U3AdminOpciones.txt_u4_nombre_vigilante;
 
 /**
  *
  * @author luise
  */
 public class U4AdminAjuste extends javax.swing.JFrame {
+    /*|||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar)||||||||||||||||||||||||||||||||||*/
+    conexion cc = new conexion();
+    Connection cn = cc.conexion();
+    public BufferedImage foto_perfil;
+    String v1_ajuste_registro_capturar_nombre;//Var global
+    private Object Session;
 
-    /**
-     * Creates new form U4AdminAjuste
-     */
+    /*|||||||||||||||||||||||||||||||||| Finaliza Llamando conexion (conectar)||||||||||||||||||||||||||||||||||*/
+
     public U4AdminAjuste() {
         initComponents();
+        metJTableVerUsuarios(tblU4AdminAjuste);
+        //--------------------------------------------------------------------------------------------------------|
+        //METODO 01 Establece el título de la ventana principal
+        this.setTitle("Sicovp Login Admon > Opciones > Ajustes");
+        //--------------------------------------------------------------------------------------------------------| 
+        //METODO 02 centrar la ventana actual del programa
+        this.setLocationRelativeTo(null);
+        //--------------------------------------------------------------------------------------------------------|    
+        // Metodo 03 Confirmacion cerrar ventana actual: 
+        //Configuramos la acción que sucede al hacer clic en el botón "X" de la ventana
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        // Agregamos un "window listener" que detecta cuando la ventana está siendo cerrada
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Mostramos un cuadro de diálogo para confirmar si el usuario desea cerrar la ventana
+                int confirmed = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas cerrar la ventana?", "Confirmación de cierre", JOptionPane.YES_NO_OPTION);
+                // Si el usuario confirma que desea cerrar la ventana
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    // Cerramos la ventana utilizando el método dispose()
+                    dispose();
+                }
+            }
+        });
+        //--------------------------------------------------------------------------------------------------------|
+        //Metodo 04 selecionar usuario en la tabla y mostrar la informacion en la UI
+        tblU4AdminAjuste.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int filaSeleccionada = tblU4AdminAjuste.getSelectedRow();
+                txtU4NumeroCedula.setText(tblU4AdminAjuste.getValueAt(filaSeleccionada, 1).toString());
+                txtU4Nombres.setText(tblU4AdminAjuste.getValueAt(filaSeleccionada, 2).toString());
+                txtU4Apellidos.setText(tblU4AdminAjuste.getValueAt(filaSeleccionada, 3).toString());
+                txtU4Correo.setText(tblU4AdminAjuste.getValueAt(filaSeleccionada, 4).toString());
+                txtU4Celular.setText(tblU4AdminAjuste.getValueAt(filaSeleccionada, 5).toString());
+                txtU4Contraseña.setText(tblU4AdminAjuste.getValueAt(filaSeleccionada, 6).toString());
+                // Para la fecha de nacimiento, necesitarás convertir la cadena de texto a un objeto Date
+                try {
+                    Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(tblU4AdminAjuste.getValueAt(filaSeleccionada, 7).toString());
+                    txtU4FechaNacimiento.setDate(fechaNacimiento);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+                cmbU4TipoUsuario.setSelectedItem(tblU4AdminAjuste.getValueAt(filaSeleccionada, 8).toString());
+            }
+        });
+        //--------------------------------------------------------------------------------------------------------|
+    }
+    
+    //--------------------------------------------------------------------------------------------------------| 
+    public void enviarCorreo(String proveedor, String remitente, String contraseña, String destinatario, String asunto, String mensaje) {
+        // Configuración de la conexión al servidor de correo
+        Properties propiedades = new Properties();
+        if (proveedor.equalsIgnoreCase("gmail")) {
+            propiedades.put("mail.smtp.host", "smtp.gmail.com");
+        } else if (proveedor.equalsIgnoreCase("hotmail")) {
+            propiedades.put("mail.smtp.host", "smtp-mail.outlook.com");
+        }
+        propiedades.put("mail.smtp.port", "587");
+        propiedades.put("mail.smtp.auth", "true");
+        propiedades.put("mail.smtp.starttls.enable", "true");
+        propiedades.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        propiedades.put("mail.smtp.ssl.trust", "smtp-mail.outlook.com");
+
+        // Crear una nueva sesión con una autenticación
+        javax.mail.Session sesion = javax.mail.Session.getInstance(propiedades, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(remitente, contraseña);
+            }
+        });
+
+        try {
+            // Crear un nuevo mensaje de correo
+            Message mensajeCorreo = new MimeMessage(sesion);
+            mensajeCorreo.setFrom(new InternetAddress(remitente));
+            mensajeCorreo.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+            mensajeCorreo.setSubject(asunto);
+            mensajeCorreo.setText(mensaje);
+
+            // Enviar el mensaje
+            Transport.send(mensajeCorreo);
+
+            System.out.println("Correo enviado exitosamente");
+        } catch (MessagingException ex33) {
+            System.out.println("Error al enviar correo: " + ex33);
+        }
+    }
+//--------------------------------------------------------------------------------------------------------| 
+// Método para abrir el explorador de archivos y guardar la imagen seleccionada
+    public void subirFoto() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        // Configura el filtro para que solo se puedan seleccionar archivos de imagen
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de imagen", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Se ha seleccionado un archivo de imagen
+            File selectedFile = fileChooser.getSelectedFile();
+
+            // Lee la imagen del archivo y la guarda en la variable global
+            try {
+                foto_perfil = ImageIO.read(selectedFile);
+
+                // Ajusta la imagen al tamaño del JLabel
+                Image scaledImage = foto_perfil.getScaledInstance(jLabel_foto_perfil.getWidth(), jLabel_foto_perfil.getHeight(), Image.SCALE_SMOOTH);
+                jLabel_foto_perfil.setIcon(new ImageIcon(scaledImage));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+//--------------------------------------------------------------------------------------------------------|    
+//--------------------------------------------------------------------------------------------------------|    
+//METODO 04 ICONO BARRA DE TAREAS
+
+    @Override
+    public Image getIconImage() {
+        // Obtener la imagen del icono usando el recurso del archivo ico_barratareas_1.png
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("com/iconos/ico_barratareas_1.png"));
+        // Devolver la imagen del icono para ser usada como el icono predeterminado para la ventana
+        return retValue;
+    }
+//--------------------------------------------------------------------------------------------------------| 
+//--------------------------------------------------------------------------------------------------------| 
+
+    public void metJTableVerUsuarios(JTable tblU4AdminAjuste) {
+        try {
+            // Consulta para obtener los visitantes registrados
+            String consulta_02 = "SELECT id_usuario, num_documento, nombres, apellidos, correo_electronico , celular, contraseña, fecha_nacimiento, tipo_usuario FROM ta1_usuarios";
+
+            // Crear el statement y ejecutar la consulta
+            java.sql.Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery(consulta_02);
+
+            // Crear el modelo de la tabla
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("N° de Documento");
+            model.addColumn("Nombres");
+            model.addColumn("Apellidos");
+            model.addColumn("Correo");
+            model.addColumn("Celular");
+            model.addColumn("Contraseña");
+            model.addColumn("f nacimiento");
+            model.addColumn("tipo user");
+
+            // Llenar el modelo con los datos de la consulta
+            while (rs.next()) {
+                Object[] row = new Object[11];
+                row[0] = rs.getInt("id_usuario");
+                row[1] = rs.getString("num_documento");
+                row[2] = rs.getString("nombres");
+                row[3] = rs.getString("apellidos");
+                row[4] = rs.getString("correo_electronico");
+                row[5] = rs.getString("celular");
+                row[6] = rs.getString("contraseña");
+                row[7] = rs.getString("fecha_nacimiento");
+                row[8] = rs.getString("tipo_usuario");
+                model.addRow(row);
+            }
+            // Asignar el modelo a la tabla
+            tblU4AdminAjuste.setModel(model);
+            // Configurar el ancho de las columnas
+            tblU4AdminAjuste.getColumnModel().getColumn(0).setPreferredWidth(30); // ID
+            tblU4AdminAjuste.getColumnModel().getColumn(1).setPreferredWidth(90); // N documento
+            tblU4AdminAjuste.getColumnModel().getColumn(2).setPreferredWidth(100); // Nombres
+            tblU4AdminAjuste.getColumnModel().getColumn(3).setPreferredWidth(100); // apellidos
+            tblU4AdminAjuste.getColumnModel().getColumn(4).setPreferredWidth(190); // correo
+            tblU4AdminAjuste.getColumnModel().getColumn(5).setPreferredWidth(90); // celular
+            tblU4AdminAjuste.getColumnModel().getColumn(6).setPreferredWidth(100); // Contraseña
+            tblU4AdminAjuste.getColumnModel().getColumn(7).setPreferredWidth(90); // fecha nacimiento
+            tblU4AdminAjuste.getColumnModel().getColumn(8).setPreferredWidth(90); // tipo usuario
+
+        } catch (SQLException ex_03) {
+            System.out.println("Error al mostrar los visitantes registrados: [metJTableVerUsuarios()]" + ex_03);
+        }
+
+    }
+//--------------------------------------------------------------------------------------------------------|
+//--------------------------------------------------------------------------------------------------------|
+    // Metodo validar jTextField solo acepte numeros (sin espacios)
+
+    public class NumberOnlyFilter extends DocumentFilter {
+        // Método que se llama al momento de insertar un nuevo carácter
+
+        @Override
+        public void insertString(DocumentFilter.FilterBypass fb, int offset, String string,
+                AttributeSet attr) throws BadLocationException {
+            String newStr = string;
+            for (int i = 0; i < string.length(); i++) {
+                if (!Character.isDigit(string.charAt(i))) {
+                    newStr = "";
+                    // Muestra un mensaje de error indicando que solo se aceptan números
+                    JOptionPane.showMessageDialog(null, "Solo se aceptan números", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            }
+            // Inserta el nuevo string si solo contiene números
+            super.insertString(fb, offset, newStr, attr);
+        }
+
+        // Método que se llama al momento de reemplazar un carácter existente
+        @Override
+        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string,
+                AttributeSet attrs) throws BadLocationException {
+            String newStr = string;
+            for (int i = 0; i < string.length(); i++) {
+                if (!Character.isDigit(string.charAt(i))) {
+                    newStr = "";
+                    // Muestra un mensaje de error indicando que solo se aceptan números
+                    JOptionPane.showMessageDialog(null, "Solo se aceptan números", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            }
+            // Reemplaza el string si solo contiene números
+            super.replace(fb, offset, length, newStr, attrs);
+        }
+    }
+//--------------------------------------------------------------------------------------------------------|
+//--------------------------------------------------------------------------------------------------------|
+    // Metodo validar jTextField solo acepte caracteres (sin espacios)
+
+    public class LetterOnlyFilter extends DocumentFilter {
+
+        @Override
+        public void insertString(DocumentFilter.FilterBypass fb, int offset, String string,
+                AttributeSet attr) throws BadLocationException {
+            String newStr = string;
+            for (int i = 0; i < string.length(); i++) {
+                if (!Character.isLetter(string.charAt(i))) {
+                    newStr = "";
+                    JOptionPane.showMessageDialog(null, "Solo se aceptan caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            }
+            super.insertString(fb, offset, newStr, attr);
+        }
+
+        @Override
+        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string,
+                AttributeSet attrs) throws BadLocationException {
+            String newStr = string;
+            for (int i = 0; i < string.length(); i++) {
+                if (!Character.isLetter(string.charAt(i))) {
+                    newStr = "";
+                    JOptionPane.showMessageDialog(null, "Solo se aceptan caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            }
+            super.replace(fb, offset, length, newStr, attrs);
+        }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+//--------------------------------------------------------------------------------------------------------|
+//--------------------------------------------------------------------------------------------------------|
+    // Metodo validar jTextField solo acepte caracteres (con espacios)
+    public class LetterSpaceFilter extends DocumentFilter {
+
+        @Override
+        public void insertString(DocumentFilter.FilterBypass fb, int offset, String string,
+                AttributeSet attr) throws BadLocationException {
+            String newStr = string;
+            for (int i = 0; i < string.length(); i++) {
+                if (!Character.isLetter(string.charAt(i)) && string.charAt(i) != ' ') {
+                    newStr = "";
+                    JOptionPane.showMessageDialog(null, "Solo se aceptan caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            }
+            super.insertString(fb, offset, newStr, attr);
+        }
+
+        @Override
+        public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string,
+                AttributeSet attrs) throws BadLocationException {
+            String newStr = string;
+            for (int i = 0; i < string.length(); i++) {
+                if (!Character.isLetter(string.charAt(i)) && string.charAt(i) != ' ') {
+                    newStr = "";
+                    JOptionPane.showMessageDialog(null, "Solo se aceptan caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            }
+            super.replace(fb, offset, length, newStr, attrs);
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------| 
+//--------------------------------------------------------------------------------------------------------| 
+    public void actualizarUsuario() {
+        // Obtén los datos del formulario
+        String actualizarNumDocumento = txtU4NumeroCedula.getText();
+        String actualizarNombres = txtU4Nombres.getText();
+        String actualizarApellidos = txtU4Apellidos.getText();
+        String actualizarCorreoElectronico = txtU4Correo.getText();
+        String actualizarCelular = txtU4Celular.getText();
+        String actualizarContraseña = txtU4Contraseña.getText();
+        String actualizarFechaNacimiento = new SimpleDateFormat("yyyy/MM/dd").format(txtU4FechaNacimiento.getDate());
+        String actualizarTipoUsuario = cmbU4TipoUsuario.getSelectedItem().toString();
+
+        // Obtén el ID del usuario seleccionado en la tabla
+        int filaSeleccionada = tblU4AdminAjuste.getSelectedRow();
+        int idUsuario = Integer.parseInt(tblU4AdminAjuste.getValueAt(filaSeleccionada, 0).toString());
+
+        try {
+            // Consulta SQL para actualizar el usuario
+            String consultaSQL = "UPDATE ta1_usuarios SET num_documento = ?, nombres = ?, apellidos = ?, correo_electronico = ?, celular = ?, contraseña = ?, fecha_nacimiento = ?, tipo_usuario = ? WHERE id_usuario = ?";
+
+            PreparedStatement pst = cn.prepareStatement(consultaSQL);
+            pst.setString(1, actualizarNumDocumento);
+            pst.setString(2, actualizarNombres);
+            pst.setString(3, actualizarApellidos);
+            pst.setString(4, actualizarCorreoElectronico);
+            pst.setString(5, actualizarCelular);
+            pst.setString(6, actualizarContraseña);
+            pst.setString(7, actualizarFechaNacimiento);
+            pst.setString(8, actualizarTipoUsuario);
+            pst.setInt(9, idUsuario);
+            pst.executeUpdate();
+
+            // Actualiza la tabla para reflejar los cambios
+            metJTableVerUsuarios(tblU4AdminAjuste);
+
+            JOptionPane.showMessageDialog(null, "Usuario actualizado correctamente");
+
+            // Enviar un correo al usuario
+            String proveedor = "hotmail"; // o "hotmail"
+            String remitente = "luiseduardo192@hotmail.com"; // o "tu_correo@hotmail.com"
+            String contraseña = "yuceivfuepcfkiem";
+            String destinatario = actualizarCorreoElectronico;
+            String asunto = "Ser Seguridad - Parque Natura";
+            String mensaje = "[Ser Seguridad Ltda] le informa que su usuario ha sido actualizado.";
+            enviarCorreo(proveedor, remitente, contraseña, destinatario, asunto, mensaje);
+
+        } catch (SQLException ex_05) {
+            System.out.println("Error al actualizar usuario: " + ex_05);
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------|  
+//--------------------------------------------------------------------------------------------------------|  
+    public void eliminarUsuario() {
+        // Obtén el ID del usuario seleccionado en la tabla
+        int filaSeleccionada = tblU4AdminAjuste.getSelectedRow();
+        int idUsuario = Integer.parseInt(tblU4AdminAjuste.getValueAt(filaSeleccionada, 0).toString());
+
+        try {
+            // Consulta SQL para obtener el correo electrónico del usuario
+            String consultaCorreo = "SELECT correo_electronico FROM ta1_usuarios WHERE id_usuario = ?";
+            PreparedStatement pstCorreo = cn.prepareStatement(consultaCorreo);
+            pstCorreo.setInt(1, idUsuario);
+            ResultSet rs = pstCorreo.executeQuery();
+            if (!rs.next()) {
+                System.out.println("No se encontró el usuario con ID: " + idUsuario);
+                return;
+            }
+            String correoUsuario = rs.getString("correo_electronico");
+
+            // Consulta SQL para eliminar el usuario
+            String consultaSQL = "DELETE FROM ta1_usuarios WHERE id_usuario = ?";
+            PreparedStatement pst = cn.prepareStatement(consultaSQL);
+            pst.setInt(1, idUsuario);
+            pst.executeUpdate();
+
+            // Actualiza la tabla para reflejar los cambios
+            metJTableVerUsuarios(tblU4AdminAjuste);
+
+            JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente");
+
+            // Enviar un correo al usuario
+            String proveedor = "hotmail"; // o "hotmail"
+            String remitente = "luiseduardo192@hotmail.com"; // o "tu_correo@hotmail.com"
+            String contraseña = "yuceivfuepcfkiem";
+            String destinatario = correoUsuario;
+            String asunto = "Ser Seguridad - Parque Natura";
+            String mensaje = "Ser Seguridad Informa que se ha eliminado tu usuario.";
+            enviarCorreo(proveedor, remitente, contraseña, destinatario, asunto, mensaje);
+
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar usuario: " + ex);
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------|   
+//--------------------------------------------------------------------------------------------------------|   
+    // INICIO METODO Pedir datos para registrar un nuevo usuario.
+    public void metRegistrarUsuario() {
+        String registroNumDocumento = txtU4NumeroCedula.getText();
+        String registroNombres = txtU4Nombres.getText();
+        String registroApellidos = txtU4Apellidos.getText();
+        String registroCorreoElectronico = txtU4Correo.getText();
+        String registroCelular = txtU4Celular.getText();
+        String registroContraseña = txtU4Contraseña.getText();
+        String registroFechaNacimiento = new SimpleDateFormat("yyyy/MM/dd").format(txtU4FechaNacimiento.getDate());
+        String registroTipoUsuario = cmbU4TipoUsuario.getSelectedItem().toString();
+
+        // Validar que los campos obligatorios estén completos
+        if (registroNumDocumento.isEmpty() || registroNombres.isEmpty() || registroApellidos.isEmpty() || registroCorreoElectronico.isEmpty() || registroContraseña.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, complete los campos obligatorios.");
+            return;
+        }
+
+        // Validar que el correo electrónico tenga un formato válido
+        if (!registroCorreoElectronico.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un correo electrónico válido.");
+            return;
+        }
+
+        // Validar que el número de celular tenga un formato válido
+        if (!registroCelular.matches("^\\d{10}$")) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de celular válido.");
+            return;
+        }
+
+        try {
+            // Convierte la imagen en un array de bytes
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(foto_perfil, "jpg", baos);
+            byte[] imagenEnBytes = baos.toByteArray();
+
+            // Consulta SQL para insertar un nuevo usuario con imagen
+            String consultaSQL = "INSERT INTO ta1_usuarios (num_documento, nombres, apellidos, correo_electronico, celular, contraseña, fecha_nacimiento, tipo_usuario, foto_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+            PreparedStatement pst = cn.prepareStatement(consultaSQL);
+            pst.setString(1, registroNumDocumento);
+            pst.setString(2, registroNombres);
+            pst.setString(3, registroApellidos);
+            pst.setString(4, registroCorreoElectronico);
+            pst.setString(5, registroCelular);
+            pst.setString(6, registroContraseña);
+            pst.setString(7, registroFechaNacimiento);
+            pst.setString(8, registroTipoUsuario);
+
+            // Aquí agregamos la imagen a la consulta
+            pst.setBytes(9, imagenEnBytes);
+            pst.executeUpdate();
+
+            // Después de registrar el usuario con éxito...
+            Icon halo2 = new ImageIcon(getClass().getResource("/com/iconos/Ico_bd_ok.png"));
+            JOptionPane.showMessageDialog(null, "Usuario registrado correctamente",
+                    "Atencion", JOptionPane.YES_NO_CANCEL_OPTION, halo2);
+
+            // Actualiza la tabla para reflejar los cambios
+            metJTableVerUsuarios(tblU4AdminAjuste);
+
+           // Enviar un correo al usuario
+            String proveedor = "hotmail"; // o "hotmail"
+            String remitente = "luiseduardo192@hotmail.com"; // o "tu_correo@hotmail.com"
+            String contraseña = "yuceivfuepcfkiem";
+            String destinatario = registroCorreoElectronico;
+            String asunto = "Ser Seguridad - Parque Natura";
+            String mensaje = "[Ser Seguridad Ltda] le informa que su nuevo usuario ha sido creado exitosamente.";
+            enviarCorreo(proveedor, remitente, contraseña, destinatario, asunto, mensaje);
+
+        } catch (SQLException ex21) {
+            System.out.println("Error al registrar nuevo usuario: " + ex21);
+        } catch (IOException ex22) {
+            System.out.println("Error al cargar la imagen: " + ex22);
+        }
+    }
+//--------------------------------------------------------------------------------------------------------|  
+//--------------------------------------------------------------------------------------------------------|
+    // Este método se encarga de cerrar el JFrame actual, y mostrar otro
+
+    private void metSetV1Ajuste() {
+        U3AdminOpciones HALOID = new U3AdminOpciones();// Creamos una nueva instancia de la vista v1_adm_login  
+        HALOID.setVisible(true);   // Hacemos visible la nueva vista
+        this.dispose(); // Cerramos la vista actual
+    }
+//--------------------------------------------------------------------------------------------------------| 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -28,7 +535,7 @@ public class U4AdminAjuste extends javax.swing.JFrame {
         txt_fondo_baner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jCPanel1 = new com.bolivia.panel.JCPanel();
-        v1_login_admon_ajuste_name_vigilante = new javax.swing.JLabel();
+        lvlU4AdminAjuste = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtU4NumeroCedula = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -51,8 +558,9 @@ public class U4AdminAjuste extends javax.swing.JFrame {
         btbU4Agregar = new javax.swing.JButton();
         btnU4Modificar = new javax.swing.JButton();
         btbU4Eliminar = new javax.swing.JButton();
+        btbU4BuscarFoto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JTableAdmonAjustes = new javax.swing.JTable();
+        tblU4AdminAjuste = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -92,9 +600,9 @@ public class U4AdminAjuste extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        v1_login_admon_ajuste_name_vigilante.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        v1_login_admon_ajuste_name_vigilante.setForeground(new java.awt.Color(255, 255, 255));
-        v1_login_admon_ajuste_name_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
+        lvlU4AdminAjuste.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        lvlU4AdminAjuste.setForeground(new java.awt.Color(255, 255, 255));
+        lvlU4AdminAjuste.setText("v1_ajuste_txt_get_name_vigilante");
 
         javax.swing.GroupLayout jPanel_fondo_banerLayout = new javax.swing.GroupLayout(jPanel_fondo_baner);
         jPanel_fondo_baner.setLayout(jPanel_fondo_banerLayout);
@@ -108,13 +616,13 @@ public class U4AdminAjuste extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(v1_login_admon_ajuste_name_vigilante)
+                .addComponent(lvlU4AdminAjuste)
                 .addContainerGap())
         );
         jPanel_fondo_banerLayout.setVerticalGroup(
             jPanel_fondo_banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jCPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-            .addComponent(v1_login_admon_ajuste_name_vigilante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lvlU4AdminAjuste, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel_fondo_banerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_fondo_banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,6 +873,23 @@ public class U4AdminAjuste extends javax.swing.JFrame {
             }
         });
 
+        btbU4BuscarFoto.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btbU4BuscarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_buscar_foto_x40.png"))); // NOI18N
+        btbU4BuscarFoto.setText("Buscar Foto");
+        btbU4BuscarFoto.setPreferredSize(new java.awt.Dimension(123, 38));
+        btbU4BuscarFoto.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_buscar_foto_x32.png"))); // NOI18N
+        btbU4BuscarFoto.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_buscar_foto_x37.png"))); // NOI18N
+        btbU4BuscarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btbU4BuscarFotoMouseClicked(evt);
+            }
+        });
+        btbU4BuscarFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btbU4BuscarFotoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -415,7 +940,10 @@ public class U4AdminAjuste extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnU4Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btbU4Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btbU4Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btbU4BuscarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -455,12 +983,13 @@ public class U4AdminAjuste extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btbU4Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnU4Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btbU4Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btbU4Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btbU4BuscarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel_foto_perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        JTableAdmonAjustes.setModel(new javax.swing.table.DefaultTableModel(
+        tblU4AdminAjuste.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -471,13 +1000,13 @@ public class U4AdminAjuste extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(JTableAdmonAjustes);
+        jScrollPane1.setViewportView(tblU4AdminAjuste);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_fondo_baner, javax.swing.GroupLayout.DEFAULT_SIZE, 1081, Short.MAX_VALUE)
+            .addComponent(jPanel_fondo_baner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,6 +1181,14 @@ public class U4AdminAjuste extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btbU4EliminarActionPerformed
 
+    private void btbU4BuscarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btbU4BuscarFotoMouseClicked
+subirFoto();
+    }//GEN-LAST:event_btbU4BuscarFotoMouseClicked
+
+    private void btbU4BuscarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbU4BuscarFotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btbU4BuscarFotoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -688,14 +1225,13 @@ public class U4AdminAjuste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable JTableAdmonAjustes;
     private javax.swing.JButton btbU4Agregar;
+    private javax.swing.JButton btbU4BuscarFoto;
     private javax.swing.JButton btbU4Eliminar;
     private javax.swing.JButton btnU4Modificar;
     private javax.swing.JComboBox<String> cmbU4TipoUsuario;
     private javax.swing.JButton jButton1;
     private com.bolivia.panel.JCPanel jCPanel1;
-    private com.bolivia.panel.JCPanel jCPanel2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -708,9 +1244,10 @@ public class U4AdminAjuste extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel_fondo_baner;
-    private javax.swing.JPanel jPanel_info_usuario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    public static javax.swing.JLabel lvlU4AdminAjuste;
+    private javax.swing.JTable tblU4AdminAjuste;
     private javax.swing.JTextField txtU4Apellidos;
     private javax.swing.JTextField txtU4Celular;
     private javax.swing.JTextField txtU4Contraseña;
@@ -719,7 +1256,5 @@ public class U4AdminAjuste extends javax.swing.JFrame {
     private javax.swing.JTextField txtU4Nombres;
     private javax.swing.JTextField txtU4NumeroCedula;
     private javax.swing.JLabel txt_fondo_baner;
-    public static javax.swing.JLabel v1_ajuste_registro_name_vigilante;
-    public static javax.swing.JLabel v1_login_admon_ajuste_name_vigilante;
     // End of variables declaration//GEN-END:variables
 }

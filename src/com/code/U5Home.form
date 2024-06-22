@@ -517,7 +517,7 @@
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Component id="jCPanel1" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="v2_txt_set_name_vigilante" pref="168" max="32767" attributes="0"/>
+                      <Component id="txtU5MotrarNombreUsuario" pref="168" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -530,19 +530,19 @@
                               <Component id="jCPanel1" min="-2" pref="45" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="v2_txt_set_name_vigilante" max="32767" attributes="0"/>
+                          <Component id="txtU5MotrarNombreUsuario" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="v2_txt_set_name_vigilante">
+            <Component class="javax.swing.JLabel" name="txtU5MotrarNombreUsuario">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="v2_txt_set_name_vigilante"/>
+                <Property name="text" type="java.lang.String" value="txtU5MotrarNombreUsuario"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

@@ -2,7 +2,6 @@
 package com.code;
 
 import static com.code.U5Home.piptxtget_vigilante;
-import static com.code.U5Home.v2_txt_set_name_vigilante;
 import com.metodos.conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -20,6 +19,7 @@ import static com.code.U5Home.pivtxtget_vigilante;
 import static com.code.U5Home.pictxtget_vigilante;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
+import static com.code.U5Home.txtU5MotrarNombreUsuario;
 //=============================================================================================================
 
 /**
@@ -27,14 +27,15 @@ import javax.swing.UIManager;
  * @author luise
  */
 public class U1Login extends javax.swing.JFrame {
+    //=============================================================================================================
 
     /* |||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar) |||||||||||||||||||||||||||||||||| */
     // Conexión a la base de datos  
     private conexion metodos_conectar = new conexion();
     private Connection metodos_conectar_bd = metodos_conectar.conexion();
     //// Variables para capturar nombre y apellido
-    private String v1_capturar_nombre;
-    private String v1_capturar_apellido;
+    public String u1CapturarNombres;
+    public String u1CapturarApellidos;
 
     /**
      * Constructor de la clase v1_login. Inicializa los componentes y configura
@@ -137,8 +138,8 @@ public class U1Login extends javax.swing.JFrame {
             Statement st = metodos_conectar_bd.createStatement();
             ResultSet rs = st.executeQuery(consulta_01);
             if (rs.next()) {
-                v1_capturar_nombre = rs.getString("nombres");
-                v1_capturar_apellido = rs.getString("apellidos");
+                u1CapturarNombres = rs.getString("nombres");
+                u1CapturarApellidos = rs.getString("apellidos");
                 resultado = 1;
             }
         } catch (SQLException ex_01) {
@@ -160,7 +161,7 @@ public class U1Login extends javax.swing.JFrame {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
 
-    private void metSetV2Home() {
+    private void metSetU5Home() {
         U5Home HALOID = new U5Home();// Creamos una nueva instancia de la vista v1_adm_login  
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
@@ -490,12 +491,9 @@ public class U1Login extends javax.swing.JFrame {
     private void v1_btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_btn_loginActionPerformed
         //METODO LOGIN
         if (metValidarInicioSesion() == 1) {
-            metSetV2Home();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            v2_txt_set_name_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
-            pivtxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
-            pictxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
-            piptxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
+            metSetU5Home();//Invocar metodo
+            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA U5Home*/
+            txtU5MotrarNombreUsuario.setText(u1CapturarNombres + " " + u1CapturarApellidos);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
@@ -507,12 +505,12 @@ public class U1Login extends javax.swing.JFrame {
     private void v1_txt_modulo_contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_txt_modulo_contraseñaActionPerformed
         //METODO LOGIN
         if (metValidarInicioSesion() == 1) {
-            metSetV2Home();//Invocar metodo
+            metSetU5Home();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            v2_txt_set_name_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
-            pivtxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
-            pictxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
-            piptxtget_vigilante.setText(v1_capturar_nombre + " " + v1_capturar_apellido);
+            txtU5MotrarNombreUsuario.setText(u1CapturarNombres + " " + u1CapturarApellidos);
+            pivtxtget_vigilante.setText(u1CapturarNombres + " " + u1CapturarApellidos);
+            pictxtget_vigilante.setText(u1CapturarNombres + " " + u1CapturarApellidos);
+            piptxtget_vigilante.setText(u1CapturarNombres + " " + u1CapturarApellidos);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",

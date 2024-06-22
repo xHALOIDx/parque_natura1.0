@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import static com.code.U3AdminOpciones.v1_login_admon_ajuste_name_vigilante;
 import static com.code.U4AdminAjustes.v1_ajuste_registro_name_vigilante;
+import static com.code.U3AdminOpciones.txt_u4_nombre_vigilante;
 
 /**
  *
@@ -447,7 +447,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         if (metValidarInicioSesion() == 1) {
             metSetV1Ajuste();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA v1_login_admon_ajuste*/
-            v1_login_admon_ajuste_name_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
+            txt_u4_nombre_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
             v1_ajuste_registro_name_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
             
             
@@ -495,7 +495,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         if (metValidarInicioSesion() == 1) {
             metSetV1Ajuste();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            v1_login_admon_ajuste_name_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
+            txt_u4_nombre_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
@@ -509,7 +509,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         if (metValidarInicioSesion() == 1) {
             metSetV1Ajuste();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            v1_login_admon_ajuste_name_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
+            txt_u4_nombre_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",

@@ -96,7 +96,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jCPanel1" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="v1_login_admon_ajuste_name_vigilante" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_u4_nombre_vigilante" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -114,7 +114,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="v1_login_admon_ajuste_name_vigilante" max="32767" attributes="0"/>
+                  <Component id="txt_u4_nombre_vigilante" max="32767" attributes="0"/>
                   <Component id="jCPanel1" pref="45" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -175,7 +175,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="javax.swing.JLabel" name="v1_login_admon_ajuste_name_vigilante">
+            <Component class="javax.swing.JLabel" name="txt_u4_nombre_vigilante">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="15" style="1"/>
