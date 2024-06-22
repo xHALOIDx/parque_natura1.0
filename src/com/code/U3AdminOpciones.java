@@ -18,7 +18,7 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         initComponents();
         //--------------------------------------------------------------------------------------------------------|
         //METODO 01 Establece el título de la ventana principal
-        this.setTitle("Sicovp Ajustes");
+        this.setTitle("Sicovp Login Admon > Opciones");
         //--------------------------------------------------------------------------------------------------------| 
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
@@ -90,12 +90,14 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         jPanel_fondo_baner = new javax.swing.JPanel();
         txt_fondo_baner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        panel_info_usuario = new javax.swing.JPanel();
-        v1_login_admon_ajuste_name_vigilante = new javax.swing.JLabel();
         jCPanel1 = new com.bolivia.panel.JCPanel();
+        v1_login_admon_ajuste_name_vigilante = new javax.swing.JLabel();
         jPanel_m_añadir = new javax.swing.JPanel();
         txt_m_administrar1 = new javax.swing.JLabel();
         jCPanel_m_administrar1 = new com.bolivia.panel.JCPanel();
+        jPanel_m_añadir1 = new javax.swing.JPanel();
+        txt_m_administrar2 = new javax.swing.JLabel();
+        jCPanel_m_administrar2 = new com.bolivia.panel.JCPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -121,12 +123,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             }
         });
 
-        panel_info_usuario.setBackground(new java.awt.Color(51, 51, 51));
-
-        v1_login_admon_ajuste_name_vigilante.setForeground(new java.awt.Color(255, 255, 255));
-        v1_login_admon_ajuste_name_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
-
-        jCPanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_vigilante.png"))); // NOI18N
+        jCPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jCPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jCPanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_foto_perfil_hombre_x512.png"))); // NOI18N
 
         javax.swing.GroupLayout jCPanel1Layout = new javax.swing.GroupLayout(jCPanel1);
         jCPanel1.setLayout(jCPanel1Layout);
@@ -139,22 +138,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGap(0, 45, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout panel_info_usuarioLayout = new javax.swing.GroupLayout(panel_info_usuario);
-        panel_info_usuario.setLayout(panel_info_usuarioLayout);
-        panel_info_usuarioLayout.setHorizontalGroup(
-            panel_info_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_info_usuarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(v1_login_admon_ajuste_name_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panel_info_usuarioLayout.setVerticalGroup(
-            panel_info_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(v1_login_admon_ajuste_name_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jCPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-        );
+        v1_login_admon_ajuste_name_vigilante.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        v1_login_admon_ajuste_name_vigilante.setForeground(new java.awt.Color(255, 255, 255));
+        v1_login_admon_ajuste_name_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
 
         javax.swing.GroupLayout jPanel_fondo_banerLayout = new javax.swing.GroupLayout(jPanel_fondo_baner);
         jPanel_fondo_baner.setLayout(jPanel_fondo_banerLayout);
@@ -165,22 +151,24 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(232, 232, 232)
                 .addComponent(txt_fondo_baner, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panel_info_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(v1_login_admon_ajuste_name_vigilante)
+                .addContainerGap())
         );
         jPanel_fondo_banerLayout.setVerticalGroup(
             jPanel_fondo_banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_fondo_banerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(panel_info_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel_fondo_banerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_fondo_banerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_fondo_banerLayout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addComponent(txt_fondo_baner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(v1_login_admon_ajuste_name_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jCPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         jPanel_m_añadir.setBackground(new java.awt.Color(204, 204, 204));
@@ -237,6 +225,60 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
+        jPanel_m_añadir1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel_m_añadir1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel_m_añadir1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel_m_añadir1MouseMoved(evt);
+            }
+        });
+        jPanel_m_añadir1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_m_añadir1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel_m_añadir1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel_m_añadir1MouseExited(evt);
+            }
+        });
+
+        txt_m_administrar2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txt_m_administrar2.setText("Sin programar");
+
+        jCPanel_m_administrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/ico_add-user_x64.png"))); // NOI18N
+
+        javax.swing.GroupLayout jCPanel_m_administrar2Layout = new javax.swing.GroupLayout(jCPanel_m_administrar2);
+        jCPanel_m_administrar2.setLayout(jCPanel_m_administrar2Layout);
+        jCPanel_m_administrar2Layout.setHorizontalGroup(
+            jCPanel_m_administrar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 64, Short.MAX_VALUE)
+        );
+        jCPanel_m_administrar2Layout.setVerticalGroup(
+            jCPanel_m_administrar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 64, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel_m_añadir1Layout = new javax.swing.GroupLayout(jPanel_m_añadir1);
+        jPanel_m_añadir1.setLayout(jPanel_m_añadir1Layout);
+        jPanel_m_añadir1Layout.setHorizontalGroup(
+            jPanel_m_añadir1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_m_añadir1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCPanel_m_administrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_m_administrar2, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
+        );
+        jPanel_m_añadir1Layout.setVerticalGroup(
+            jPanel_m_añadir1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_m_añadir1Layout.createSequentialGroup()
+                .addGroup(jPanel_m_añadir1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCPanel_m_administrar2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                    .addComponent(txt_m_administrar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel_fondoLayout = new javax.swing.GroupLayout(jPanel_fondo);
         jPanel_fondo.setLayout(jPanel_fondoLayout);
         jPanel_fondoLayout.setHorizontalGroup(
@@ -245,6 +287,8 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGroup(jPanel_fondoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel_m_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_m_añadir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_fondoLayout.setVerticalGroup(
@@ -252,7 +296,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGroup(jPanel_fondoLayout.createSequentialGroup()
                 .addComponent(jPanel_fondo_baner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel_m_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_m_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel_m_añadir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
 
@@ -260,7 +306,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel_fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,6 +350,22 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         v1_ajuste_registro_name_vigilante.setText(v1_login_admon_ajuste_capturar_nombre);//Enviar nombre guardado a otra ventana
         /* ----------------------------------------------- Fin Boton (Administrar)  ----------------------------------------------- */
     }//GEN-LAST:event_jPanel_m_añadirMouseClicked
+
+    private void jPanel_m_añadir1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel_m_añadir1MouseMoved
+
+    private void jPanel_m_añadir1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel_m_añadir1MouseClicked
+
+    private void jPanel_m_añadir1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel_m_añadir1MouseEntered
+
+    private void jPanel_m_añadir1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel_m_añadir1MouseExited
 
     /**
      * @param args the command line arguments
@@ -357,12 +421,14 @@ public class U3AdminOpciones extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private com.bolivia.panel.JCPanel jCPanel1;
     private com.bolivia.panel.JCPanel jCPanel_m_administrar1;
+    private com.bolivia.panel.JCPanel jCPanel_m_administrar2;
     private javax.swing.JPanel jPanel_fondo;
     private javax.swing.JPanel jPanel_fondo_baner;
     private javax.swing.JPanel jPanel_m_añadir;
-    private javax.swing.JPanel panel_info_usuario;
+    private javax.swing.JPanel jPanel_m_añadir1;
     private javax.swing.JLabel txt_fondo_baner;
     private javax.swing.JLabel txt_m_administrar1;
+    private javax.swing.JLabel txt_m_administrar2;
     public static javax.swing.JLabel v1_login_admon_ajuste_name_vigilante;
     // End of variables declaration//GEN-END:variables
 }

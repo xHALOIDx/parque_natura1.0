@@ -35,7 +35,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         initComponents();
         //--------------------------------------------------------------------------------------------------------|
         //METODO 01 Establece el título de la ventana principal
-        this.setTitle("Administrador Iniciar Sesion");
+        this.setTitle("Sicovp Login Admon");
         //--------------------------------------------------------------------------------------------------------|  
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);

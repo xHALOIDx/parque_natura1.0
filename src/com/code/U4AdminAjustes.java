@@ -56,7 +56,7 @@ public final class U4AdminAjustes extends javax.swing.JFrame {
         mostrarUsuariosRegistrados(tabla_administrar_usuarios);
         //--------------------------------------------------------------------------------------------------------|
         //METODO 01 Establece el título de la ventana principal
-        this.setTitle("Sicovp Registro");
+        this.setTitle("Sicovp Login Admon > Opciones > Ajustes");
         //--------------------------------------------------------------------------------------------------------| 
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
