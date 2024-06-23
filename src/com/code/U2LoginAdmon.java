@@ -1,3 +1,4 @@
+//=============================================================================================================
 package com.code;
 
 import com.metodos.conexion;
@@ -13,34 +14,35 @@ import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import static com.code.U4AdminAjustes.v1_ajuste_registro_name_vigilante;
 import static com.code.U3AdminOpciones.txt_u4_nombre_vigilante;
+//=============================================================================================================
 
 /**
  *
  * @author luise
  */
+//=============================================================================================================
 public class U2LoginAdmon extends javax.swing.JFrame {
 
     /* |||||||||||||||||||||||||||||||||| Inicia Llamando conexion (conectar) |||||||||||||||||||||||||||||||||| */
-//METODO 01 PUENTE DE CONEXION    
+    //METODO 01 PUENTE DE CONEXION    
     conexion metodos_conectar = new conexion();
     Connection metodos_conectar_bd = metodos_conectar.conexion();
-    //VARIABLE GET NOMBRE COMPLETO DATABASE
-    String v1_adm_capturar_nombre;
-    String v1_adm_capturar_apellido;
+    /*VARIABLES PARA CAPTURAR NOMBRE Y APELLIDO EN EL LOGIN*/
+    private String u2CapturarNombres;
+    private String u2CapturarApellidos;
 
     /* |||||||||||||||||||||||||||||||||| Cierra Llamando conexion (conectar) |||||||||||||||||||||||||||||||||| */
+//=============================================================================================================
     public U2LoginAdmon() {
         initComponents();
         //--------------------------------------------------------------------------------------------------------|
         //METODO 01 Establece el título de la ventana principal
-        this.setTitle("Sicovp Login Admon");
+        this.setTitle("Sicovp Login Administración");
         //--------------------------------------------------------------------------------------------------------|  
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
-        //--------------------------------------------------------------------------------------------------------|   
-        //--------------------------------------------------------------------------------------------------------|   
+        //--------------------------------------------------------------------------------------------------------| 
         // Metodo 03 Confirmacion cerrar ventana actual: 
         //Configuramos la acción que sucede al hacer clic en el botón "X" de la ventana
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -59,7 +61,9 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         });
         //--------------------------------------------------------------------------------------------------------|
     }
+//=============================================================================================================
 
+    /* ++++++++++++++++++++++++++++++++++++++++++++++ INICIO METODOS - LOGICA ++++++++++++++++++++++++++++++++++++++++++++++ */
 //--------------------------------------------------------------------------------------------------------|    
 //METODO 04 ICONO BARRA DE TAREAS
 // Este método sobrescribe el método getIconImage de la clase JFrame para establecer el icono de la aplicación.
@@ -72,8 +76,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         // Devolver la imagen del icono para ser usada como el icono predeterminado para la ventana
         return retValue;
     }
-//--------------------------------------------------------------------------------------------------------|
-//--------------------------------------------------------------------------------------------------------|
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
 //METODO 05 validador de jTextField que solo acepte números utilizando un DocumentFilter en Java
 
     public class NumberOnlyFilter extends DocumentFilter {
@@ -112,7 +115,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
             super.replace(fb, offset, length, newStr, attrs);
         }
     }
-//--------------------------------------------------------------------------------------------------------| 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
 //METODO 06 VALIDAR USUARIO Y CONTRASEÑA
 
     public int metValidarInicioSesion() {
@@ -128,8 +131,8 @@ public class U2LoginAdmon extends javax.swing.JFrame {
             Statement st = metodos_conectar_bd.createStatement();
             ResultSet rs = st.executeQuery(consulta_02);
             if (rs.next()) {
-                v1_adm_capturar_nombre = rs.getString("nombres");
-                v1_adm_capturar_apellido = rs.getString("apellidos");
+                u2CapturarNombres = rs.getString("nombres");
+                u2CapturarApellidos = rs.getString("apellidos");
                 resultado = 1;
             }
         } catch (SQLException a) {
@@ -140,7 +143,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         }
         return resultado;
     }
-//--------------------------------------------------------------------------------------------------------|
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
 
     private void metSetV1Ajuste() {
@@ -148,7 +151,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
     }
-//--------------------------------------------------------------------------------------------------------|
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
 
     private void metSetV1Login() {
@@ -156,10 +159,9 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
     }
-//--------------------------------------------------------------------------------------------------------|
-//--------------------------------------------------------------------------------------------------------| 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
 
-    /* +++++++++++++++++++++++++++++++++++++ Cierra DECLARACION DE METODOS +++++++++++++++++++++++++++++++++++++ */
+/* +++++++++++++++++++++++++++++++++++++ Cierra DECLARACION DE METODOS +++++++++++++++++++++++++++++++++++++ */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -447,10 +449,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         if (metValidarInicioSesion() == 1) {
             metSetV1Ajuste();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA v1_login_admon_ajuste*/
-            txt_u4_nombre_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
-            v1_ajuste_registro_name_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
-            
-            
+            txt_u4_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);            
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
@@ -495,7 +494,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         if (metValidarInicioSesion() == 1) {
             metSetV1Ajuste();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            txt_u4_nombre_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
+            txt_u4_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
@@ -509,7 +508,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         if (metValidarInicioSesion() == 1) {
             metSetV1Ajuste();//Invocar metodo
             /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            txt_u4_nombre_vigilante.setText(v1_adm_capturar_nombre + " " + v1_adm_capturar_apellido);
+            txt_u4_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);
         } else {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
             JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",

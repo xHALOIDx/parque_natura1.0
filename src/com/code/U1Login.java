@@ -33,9 +33,9 @@ public class U1Login extends javax.swing.JFrame {
     // Conexión a la base de datos  
     private conexion metodos_conectar = new conexion();
     private Connection metodos_conectar_bd = metodos_conectar.conexion();
-    //// Variables para capturar nombre y apellido
-    public String u1CapturarNombres;
-    public String u1CapturarApellidos;
+    // Variables para capturar nombre y apellido
+    private String u1CapturarNombres;
+    private String u1CapturarApellidos;
 
     /**
      * Constructor de la clase v1_login. Inicializa los componentes y configura
@@ -123,8 +123,7 @@ public class U1Login extends javax.swing.JFrame {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
 
     /* Método para validar el inicio de sesión */
-    /*  @return 1 si el usuario es válido, 0 en caso contrario. */
-    
+ /*  @return 1 si el usuario es válido, 0 en caso contrario. */
     public int metValidarInicioSesion() {
         /*01*//*usuario*/
         String v1_usuario = v1_txt_modulo_usuario.getText();
@@ -532,11 +531,11 @@ public class U1Login extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-try {
-    UIManager.setLookAndFeel( new FlatLightLaf() );
-} catch( Exception ex ) {
-    System.err.println( "Failed to initialize LaF" );
-}
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
