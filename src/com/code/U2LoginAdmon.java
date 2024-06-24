@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import static com.code.U3AdminOpciones.txt_u4_nombre_vigilante;
-//=============================================================================================================
+import static com.code.U3AdminOpciones.txt_u3_nombre_vigilante;
+import static com.code.U4AdminAjuste.txt_u4_admin_ajuste_nombre_vigilante;
 
 /**
  *
@@ -116,37 +116,57 @@ public class U2LoginAdmon extends javax.swing.JFrame {
         }
     }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
-//METODO 06 VALIDAR USUARIO Y CONTRASEÑA
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|   
 
-    public int metValidarInicioSesion() {
-        /*01*//*usuario*/
-        String v1_usuario = v1_txt_modulo_admusuario.getText();
-        /*02*//*contraseña*/
-        String v1_contraseña = String.valueOf(v1_txt_modulo_admcontraseña.getPassword());
+    public int metU2ValidarLogin() {
+        String usuario = v1_txt_modulo_admusuario.getText();
+        String contraseña = String.valueOf(v1_txt_modulo_admcontraseña.getPassword());
         int resultado = 0;
-        /*CONSULTA BASE DE DATOS*/
-        String consulta_02 = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + v1_usuario + "' AND contraseña ='" + v1_contraseña + "'";
-        Connection conect = null;
+
+        // Consulta para verificar si el usuario existe
+        String consultaUsuario = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + usuario + "'";
+
+        // Consulta para verificar si la contraseña es correcta
+        String consultaContraseña = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + usuario + "' AND contraseña ='" + contraseña + "'";
+
         try {
             Statement st = metodos_conectar_bd.createStatement();
-            ResultSet rs = st.executeQuery(consulta_02);
-            if (rs.next()) {
-                u2CapturarNombres = rs.getString("nombres");
-                u2CapturarApellidos = rs.getString("apellidos");
-                resultado = 1;
+
+            // Verificar si el usuario existe
+            ResultSet rsUsuario = st.executeQuery(consultaUsuario);
+            if (rsUsuario.next()) {
+                // Usuario existe, ahora verificar la contraseña
+                ResultSet rsContraseña = st.executeQuery(consultaContraseña);
+                if (rsContraseña.next()) {
+                    // Contraseña correcta, capturar nombres y apellidos
+                    u2CapturarNombres = rsUsuario.getString("nombres");
+                    u2CapturarApellidos = rsContraseña.getString("apellidos");
+                    resultado = 1;
+                    metSetU3AdminOpciones();//Invocar metodo para enviar a proxima UI
+                    /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA U3AdminOpciones*/
+                    txt_u3_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);
+                } else {
+                    // Contraseña incorrecta
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta. Por favor, intente de nuevo.",
+                            "Error de Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Usuario no existe
+                JOptionPane.showMessageDialog(null, "El usuario no existe. Por favor, registrese primero.",
+                        "Error de Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException a) {
+        } catch (SQLException ex) {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Ha habido un error al intentar conectar con el servidor :" + a,
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
+            JOptionPane.showMessageDialog(null, "Ha habido un error al intentar conectar con el servidor: " + ex,
+                    "Atención", JOptionPane.YES_NO_CANCEL_OPTION, halo_v1);
         }
         return resultado;
     }
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
     // Este método se encarga de cerrar el JFrame actual, y mostrar otro
-
-    private void metSetV1Ajuste() {
+    private void metSetU3AdminOpciones() {
         U3AdminOpciones HALOID = new U3AdminOpciones();// Creamos una nueva instancia de la vista v1_adm_login  
         HALOID.setVisible(true);   // Hacemos visible la nueva vista
         this.dispose(); // Cerramos la vista actual
@@ -161,7 +181,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
     }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|
 
-/* +++++++++++++++++++++++++++++++++++++ Cierra DECLARACION DE METODOS +++++++++++++++++++++++++++++++++++++ */
+    /* +++++++++++++++++++++++++++++++++++++ Cierra DECLARACION DE METODOS +++++++++++++++++++++++++++++++++++++ */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -445,17 +465,7 @@ public class U2LoginAdmon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void v1_btn_admloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_v1_btn_admloginMouseClicked
-        //METODO LOGIN
-        if (metValidarInicioSesion() == 1) {
-            metSetV1Ajuste();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA v1_login_admon_ajuste*/
-            txt_u4_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);            
-        } else {
-            Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
-        }
+        metU2ValidarLogin();
     }//GEN-LAST:event_v1_btn_admloginMouseClicked
 
     private void v1_txt_modulo_admusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_v1_txt_modulo_admusuarioKeyTyped
@@ -490,31 +500,11 @@ public class U2LoginAdmon extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regresarMouseClicked
 
     private void v1_btn_admloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_btn_admloginActionPerformed
-        //METODO LOGIN
-        if (metValidarInicioSesion() == 1) {
-            metSetV1Ajuste();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            txt_u4_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);
-        } else {
-            Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
-        }
+        metU2ValidarLogin();
     }//GEN-LAST:event_v1_btn_admloginActionPerformed
 
     private void v1_txt_modulo_admcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_txt_modulo_admcontraseñaActionPerformed
-        //METODO LOGIN
-        if (metValidarInicioSesion() == 1) {
-            metSetV1Ajuste();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            txt_u4_nombre_vigilante.setText(u2CapturarNombres + " " + u2CapturarApellidos);
-        } else {
-            Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
-        }
+        metU2ValidarLogin();
     }//GEN-LAST:event_v1_txt_modulo_admcontraseñaActionPerformed
 
     /**

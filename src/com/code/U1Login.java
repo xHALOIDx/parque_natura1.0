@@ -1,7 +1,6 @@
 //=============================================================================================================
 package com.code;
 
-import static com.code.U5Home.piptxtget_vigilante;
 import com.metodos.conexion;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -15,8 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import static com.code.U5Home.pivtxtget_vigilante;
-import static com.code.U5Home.pictxtget_vigilante;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 import static com.code.U5Home.txtU5MotrarNombreUsuario;
@@ -121,36 +118,54 @@ public class U1Login extends javax.swing.JFrame {
         }
     }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++| 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|   
 
-    /* Método para validar el inicio de sesión */
- /*  @return 1 si el usuario es válido, 0 en caso contrario. */
-    public int metValidarInicioSesion() {
-        /*01*//*usuario*/
-        String v1_usuario = v1_txt_modulo_usuario.getText();
-        /*02*//*contraseña*/
-        String v1_contraseña = String.valueOf(v1_txt_modulo_contraseña.getPassword());
+    public int metU1ValidarLogin() {
+        String usuario = v1_txt_modulo_usuario.getText();
+        String contraseña = String.valueOf(v1_txt_modulo_contraseña.getPassword());
         int resultado = 0;
-        /*CONSULTA BASE DE DATOS*/
-        String consulta_01 = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + v1_usuario + "' AND contraseña ='" + v1_contraseña + "'";
-        Connection conect = null;
+
+        // Consulta para verificar si el usuario existe
+        String consultaUsuario = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + usuario + "'";
+
+        // Consulta para verificar si la contraseña es correcta
+        String consultaContraseña = "SELECT nombres, apellidos FROM ta1_usuarios WHERE num_documento='" + usuario + "' AND contraseña ='" + contraseña + "'";
+
         try {
             Statement st = metodos_conectar_bd.createStatement();
-            ResultSet rs = st.executeQuery(consulta_01);
-            if (rs.next()) {
-                u1CapturarNombres = rs.getString("nombres");
-                u1CapturarApellidos = rs.getString("apellidos");
-                resultado = 1;
+
+            // Verificar si el usuario existe
+            ResultSet rsUsuario = st.executeQuery(consultaUsuario);
+            if (rsUsuario.next()) {
+                // Usuario existe, ahora verificar la contraseña
+                ResultSet rsContraseña = st.executeQuery(consultaContraseña);
+                if (rsContraseña.next()) {
+                    // Contraseña correcta, capturar nombres y apellidos
+                    u1CapturarNombres = rsUsuario.getString("nombres");
+                    u1CapturarApellidos = rsContraseña.getString("apellidos");
+                    resultado = 1;
+                    metSetU5Home();//Invocar metodo
+                    /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA U5Home*/
+                    txtU5MotrarNombreUsuario.setText(u1CapturarNombres + " " + u1CapturarApellidos);
+                } else {
+                    // Contraseña incorrecta
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta. Por favor, intente de nuevo.",
+                            "Error de Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Usuario no existe
+                JOptionPane.showMessageDialog(null, "El usuario no existe. Por favor, registrese primero.",
+                        "Error de Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex_01) {
+        } catch (SQLException ex) {
             Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Ha habido un error al intentar conectar con el servidor :" + ex_01,
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
+            JOptionPane.showMessageDialog(null, "Ha habido un error al intentar conectar con el servidor: " + ex,
+                    "Atención", JOptionPane.YES_NO_CANCEL_OPTION, halo_v1);
         }
         return resultado;
     }
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|   
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|   
 // Este método se encarga de cerrar el JFrame actual, y mostrar otro
     private void metSetV1AdmLogin() {
         U2LoginAdmon HALOID = new U2LoginAdmon();// Creamos una nueva instancia de la vista v1_adm_login  
@@ -469,7 +484,7 @@ public class U1Login extends javax.swing.JFrame {
 
 
     private void v1_btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_v1_btn_loginMouseClicked
-
+        metU1ValidarLogin();
     }//GEN-LAST:event_v1_btn_loginMouseClicked
 
     private void v1_txt_modulo_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_v1_txt_modulo_usuarioKeyTyped
@@ -488,34 +503,13 @@ public class U1Login extends javax.swing.JFrame {
     }//GEN-LAST:event_v1_txt_modulo_usuarioKeyTyped
 
     private void v1_btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_btn_loginActionPerformed
-        //METODO LOGIN
-        if (metValidarInicioSesion() == 1) {
-            metSetU5Home();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA U5Home*/
-            txtU5MotrarNombreUsuario.setText(u1CapturarNombres + " " + u1CapturarApellidos);
-        } else {
-            Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
-        }
+        metU1ValidarLogin();
+
     }//GEN-LAST:event_v1_btn_loginActionPerformed
 
     private void v1_txt_modulo_contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_v1_txt_modulo_contraseñaActionPerformed
-        //METODO LOGIN
-        if (metValidarInicioSesion() == 1) {
-            metSetU5Home();//Invocar metodo
-            /*ENVIAR NONBRE COMPLETO A LA PROXIMA A VENTANA */
-            txtU5MotrarNombreUsuario.setText(u1CapturarNombres + " " + u1CapturarApellidos);
-            pivtxtget_vigilante.setText(u1CapturarNombres + " " + u1CapturarApellidos);
-            pictxtget_vigilante.setText(u1CapturarNombres + " " + u1CapturarApellidos);
-            piptxtget_vigilante.setText(u1CapturarNombres + " " + u1CapturarApellidos);
-        } else {
-            Icon halo_v1 = new ImageIcon(getClass().getResource("/com/iconos/ico_bd_error.png"));
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesion [Usuario o contraseña incorrecta]",
-                    "                                              Atencion", JOptionPane.YES_NO_CANCEL_OPTION,
-                    halo_v1);
-        }
+        metU1ValidarLogin();
+
     }//GEN-LAST:event_v1_txt_modulo_contraseñaActionPerformed
 
     private void v1_txt_modulo_contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_v1_txt_modulo_contraseñaKeyPressed

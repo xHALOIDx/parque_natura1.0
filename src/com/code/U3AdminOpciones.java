@@ -1,6 +1,6 @@
 package com.code;
 
-import static com.code.U4AdminAjuste.lvlU4AdminAjuste;
+import static com.code.U4AdminAjuste.txt_u4_admin_ajuste_nombre_vigilante;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -12,13 +12,13 @@ import javax.swing.JOptionPane;
  */
 public class U3AdminOpciones extends javax.swing.JFrame {
 
-    String v1_login_admon_ajuste_capturar_nombre;//Var global
+    private String u3CapturarNombresApellidos;
 
     public U3AdminOpciones() {
         initComponents();
         //--------------------------------------------------------------------------------------------------------|
         //METODO 01 Establece el título de la ventana principal
-        this.setTitle("Sicovp Login Admon > Opciones");
+        this.setTitle("Sicovp Login Administración > Opciones");
         //--------------------------------------------------------------------------------------------------------| 
         //METODO 02 centrar la ventana actual del programa
         this.setLocationRelativeTo(null);
@@ -91,11 +91,11 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         txt_fondo_baner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jCPanel1 = new com.bolivia.panel.JCPanel();
-        txt_u4_nombre_vigilante = new javax.swing.JLabel();
-        jPanel_m_añadir = new javax.swing.JPanel();
+        txt_u3_nombre_vigilante = new javax.swing.JLabel();
+        panelU3Opcion1 = new javax.swing.JPanel();
         txt_m_administrar1 = new javax.swing.JLabel();
         jCPanel_m_administrar1 = new com.bolivia.panel.JCPanel();
-        jPanel_m_añadir1 = new javax.swing.JPanel();
+        panelU3Opcion2 = new javax.swing.JPanel();
         txt_m_administrar2 = new javax.swing.JLabel();
         jCPanel_m_administrar2 = new com.bolivia.panel.JCPanel();
 
@@ -138,9 +138,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGap(0, 45, Short.MAX_VALUE)
         );
 
-        txt_u4_nombre_vigilante.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        txt_u4_nombre_vigilante.setForeground(new java.awt.Color(255, 255, 255));
-        txt_u4_nombre_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
+        txt_u3_nombre_vigilante.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        txt_u3_nombre_vigilante.setForeground(new java.awt.Color(255, 255, 255));
+        txt_u3_nombre_vigilante.setText("v1_ajuste_txt_get_name_vigilante");
 
         javax.swing.GroupLayout jPanel_fondo_banerLayout = new javax.swing.GroupLayout(jPanel_fondo_baner);
         jPanel_fondo_baner.setLayout(jPanel_fondo_banerLayout);
@@ -154,7 +154,7 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_u4_nombre_vigilante)
+                .addComponent(txt_u3_nombre_vigilante)
                 .addContainerGap())
         );
         jPanel_fondo_banerLayout.setVerticalGroup(
@@ -167,26 +167,26 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                         .addGap(0, 2, Short.MAX_VALUE))
                     .addComponent(txt_fondo_baner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(txt_u4_nombre_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txt_u3_nombre_vigilante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jCPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jPanel_m_añadir.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel_m_añadir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel_m_añadir.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        panelU3Opcion1.setBackground(new java.awt.Color(204, 204, 204));
+        panelU3Opcion1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        panelU3Opcion1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadirMouseMoved(evt);
+                panelU3Opcion1MouseMoved(evt);
             }
         });
-        jPanel_m_añadir.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelU3Opcion1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadirMouseClicked(evt);
+                panelU3Opcion1MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadirMouseEntered(evt);
+                panelU3Opcion1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadirMouseExited(evt);
+                panelU3Opcion1MouseExited(evt);
             }
         });
 
@@ -206,41 +206,41 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGap(0, 64, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel_m_añadirLayout = new javax.swing.GroupLayout(jPanel_m_añadir);
-        jPanel_m_añadir.setLayout(jPanel_m_añadirLayout);
-        jPanel_m_añadirLayout.setHorizontalGroup(
-            jPanel_m_añadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_m_añadirLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelU3Opcion1Layout = new javax.swing.GroupLayout(panelU3Opcion1);
+        panelU3Opcion1.setLayout(panelU3Opcion1Layout);
+        panelU3Opcion1Layout.setHorizontalGroup(
+            panelU3Opcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelU3Opcion1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCPanel_m_administrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_m_administrar1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
         );
-        jPanel_m_añadirLayout.setVerticalGroup(
-            jPanel_m_añadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_m_añadirLayout.createSequentialGroup()
-                .addGroup(jPanel_m_añadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        panelU3Opcion1Layout.setVerticalGroup(
+            panelU3Opcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelU3Opcion1Layout.createSequentialGroup()
+                .addGroup(panelU3Opcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jCPanel_m_administrar1, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                     .addComponent(txt_m_administrar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
-        jPanel_m_añadir1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel_m_añadir1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel_m_añadir1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        panelU3Opcion2.setBackground(new java.awt.Color(204, 204, 204));
+        panelU3Opcion2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        panelU3Opcion2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadir1MouseMoved(evt);
+                panelU3Opcion2MouseMoved(evt);
             }
         });
-        jPanel_m_añadir1.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelU3Opcion2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadir1MouseClicked(evt);
+                panelU3Opcion2MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadir1MouseEntered(evt);
+                panelU3Opcion2MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel_m_añadir1MouseExited(evt);
+                panelU3Opcion2MouseExited(evt);
             }
         });
 
@@ -260,20 +260,20 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addGap(0, 64, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel_m_añadir1Layout = new javax.swing.GroupLayout(jPanel_m_añadir1);
-        jPanel_m_añadir1.setLayout(jPanel_m_añadir1Layout);
-        jPanel_m_añadir1Layout.setHorizontalGroup(
-            jPanel_m_añadir1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_m_añadir1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelU3Opcion2Layout = new javax.swing.GroupLayout(panelU3Opcion2);
+        panelU3Opcion2.setLayout(panelU3Opcion2Layout);
+        panelU3Opcion2Layout.setHorizontalGroup(
+            panelU3Opcion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelU3Opcion2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCPanel_m_administrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_m_administrar2, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
         );
-        jPanel_m_añadir1Layout.setVerticalGroup(
-            jPanel_m_añadir1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_m_añadir1Layout.createSequentialGroup()
-                .addGroup(jPanel_m_añadir1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        panelU3Opcion2Layout.setVerticalGroup(
+            panelU3Opcion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelU3Opcion2Layout.createSequentialGroup()
+                .addGroup(panelU3Opcion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jCPanel_m_administrar2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                     .addComponent(txt_m_administrar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 2, Short.MAX_VALUE))
@@ -286,9 +286,9 @@ public class U3AdminOpciones extends javax.swing.JFrame {
             .addComponent(jPanel_fondo_baner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel_fondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel_m_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelU3Opcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_m_añadir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelU3Opcion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_fondoLayout.setVerticalGroup(
@@ -297,8 +297,8 @@ public class U3AdminOpciones extends javax.swing.JFrame {
                 .addComponent(jPanel_fondo_baner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_m_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel_m_añadir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelU3Opcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelU3Opcion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
 
@@ -324,48 +324,50 @@ public class U3AdminOpciones extends javax.swing.JFrame {
         /* ----------------------------------------------- Fin Boton (home)  ----------------------------------------------- */
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jPanel_m_añadirMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadirMouseMoved
+    private void panelU3Opcion1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion1MouseMoved
 //──────────────────────────────────────────────────────────────────
 //Evento MauseMoved (Al mover el cursos set color personalizado)
-        jPanel_m_añadir.setBackground(new Color(213, 219, 219));
+        panelU3Opcion1.setBackground(new Color(213, 219, 219));
 //──────────────────────────────────────────────────────────────────
-    }//GEN-LAST:event_jPanel_m_añadirMouseMoved
+    }//GEN-LAST:event_panelU3Opcion1MouseMoved
 
-    private void jPanel_m_añadirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadirMouseEntered
+    private void panelU3Opcion1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion1MouseEntered
 
-    }//GEN-LAST:event_jPanel_m_añadirMouseEntered
+    }//GEN-LAST:event_panelU3Opcion1MouseEntered
 
-    private void jPanel_m_añadirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadirMouseExited
+    private void panelU3Opcion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion1MouseExited
 //──────────────────────────────────────────────────────────────────
 //Evento MauseExited(Al quitar el cursos set color default)
-        jPanel_m_añadir.setBackground(new Color(204, 204, 204));
+        panelU3Opcion1.setBackground(new Color(204, 204, 204));
 
 //──────────────────────────────────────────────────────────────────
-    }//GEN-LAST:event_jPanel_m_añadirMouseExited
+    }//GEN-LAST:event_panelU3Opcion1MouseExited
 
-    private void jPanel_m_añadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadirMouseClicked
+    private void panelU3Opcion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion1MouseClicked
         /* ----------------------------------------------- Ini Boton (Administrar)  ----------------------------------------------- */
         metSetU4AdminAjuste();//Invocar metodo
-        v1_login_admon_ajuste_capturar_nombre = txt_u4_nombre_vigilante.getText();//pedir nombres y guardarlo
-        v1_ajuste_registro_name_vigilante.setText(lvlU4AdminAjuste);//Enviar nombre guardado a otra ventana
+        /*A LA VARIANLE LE ASIGNAMOS LO QUE HAY EN txt_u3_nombre_vigilante */
+        u3CapturarNombresApellidos = txt_u3_nombre_vigilante.getText();
+        /*ENVIAMOS LA INFORMACION CAPTURADA A LA SIGUIENTE PAGINA*/
+        txt_u4_admin_ajuste_nombre_vigilante.setText(u3CapturarNombresApellidos);
         /* ----------------------------------------------- Fin Boton (Administrar)  ----------------------------------------------- */
-    }//GEN-LAST:event_jPanel_m_añadirMouseClicked
+    }//GEN-LAST:event_panelU3Opcion1MouseClicked
 
-    private void jPanel_m_añadir1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseMoved
+    private void panelU3Opcion2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion2MouseMoved
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel_m_añadir1MouseMoved
+    }//GEN-LAST:event_panelU3Opcion2MouseMoved
 
-    private void jPanel_m_añadir1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseClicked
+    private void panelU3Opcion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel_m_añadir1MouseClicked
+    }//GEN-LAST:event_panelU3Opcion2MouseClicked
 
-    private void jPanel_m_añadir1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseEntered
+    private void panelU3Opcion2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion2MouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel_m_añadir1MouseEntered
+    }//GEN-LAST:event_panelU3Opcion2MouseEntered
 
-    private void jPanel_m_añadir1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_m_añadir1MouseExited
+    private void panelU3Opcion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelU3Opcion2MouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel_m_añadir1MouseExited
+    }//GEN-LAST:event_panelU3Opcion2MouseExited
 
     /**
      * @param args the command line arguments
@@ -424,11 +426,11 @@ public class U3AdminOpciones extends javax.swing.JFrame {
     private com.bolivia.panel.JCPanel jCPanel_m_administrar2;
     private javax.swing.JPanel jPanel_fondo;
     private javax.swing.JPanel jPanel_fondo_baner;
-    private javax.swing.JPanel jPanel_m_añadir;
-    private javax.swing.JPanel jPanel_m_añadir1;
+    private javax.swing.JPanel panelU3Opcion1;
+    private javax.swing.JPanel panelU3Opcion2;
     private javax.swing.JLabel txt_fondo_baner;
     private javax.swing.JLabel txt_m_administrar1;
     private javax.swing.JLabel txt_m_administrar2;
-    public static javax.swing.JLabel txt_u4_nombre_vigilante;
+    public static javax.swing.JLabel txt_u3_nombre_vigilante;
     // End of variables declaration//GEN-END:variables
 }

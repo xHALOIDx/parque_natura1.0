@@ -51,7 +51,6 @@ public final class U5Home extends javax.swing.JFrame {
     private boolean estaBuscarActivo = false;
     private boolean estaAcercaDeActivo = false;
 
-
     //=============================================================================================================
     public U5Home() {
         initComponents();
@@ -2271,7 +2270,9 @@ public final class U5Home extends javax.swing.JFrame {
         panel_titulo.setLayout(panel_tituloLayout);
         panel_tituloLayout.setHorizontalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sub_panel_titulo_txt_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panel_tituloLayout.createSequentialGroup()
+                .addComponent(sub_panel_titulo_txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 461, Short.MAX_VALUE))
         );
         panel_tituloLayout.setVerticalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3533,7 +3534,7 @@ public final class U5Home extends javax.swing.JFrame {
                 = (javax.swing.text.AbstractDocument) pivtxtget_nombre_visitante.getDocument();
         doc.setDocumentFilter(new LetterSpaceFilter());
         /* ------------------------------------------------------------------------------------ */
- /* ------------------------------------------------------------------------------------ */
+        /* ------------------------------------------------------------------------------------ */
         //Validador JtexField Cantidad de Caracteres deseados
         if (pivtxtget_nombre_visitante.getText().length() == 35) {
             evt.consume();
